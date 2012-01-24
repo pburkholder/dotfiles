@@ -1,0 +1,116 @@
+# .bashrc
+
+# User specific aliases and functions
+
+# Source global definitions
+#if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+#fi
+
+# How to undefine a function:
+# $ unset -f functionName
+
+# User specific aliases and functions
+
+export PS1='[\u@\h \W]$ '
+export EDITOR=/usr/bin/vim
+export LESS='-X'
+export JRUBY_HOME=/opt/aarp/jruby
+export PATH=$PATH:/sbin:/usr/sbin:$JRUBY_HOME/bin:/home/monitors/nagios/plugins
+export LANG=C
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export CVSROOT=":pserver:pburkholder@ram:/home/CVS"
+
+
+PATH=$PATH:$HOME/bin
+
+# Settings for JAVA * http://ram.aarp.org/cgi-bin/wiki/usemod/wiki.pl?DeployingBoltToProduction
+export JAVA_HOME=/usr/lib/jvm/java
+export PATH=$JAVA_HOME/bin:/usr/sbin:/sbin:$PATH
+export APACHE_ROOT_WEB="/usr/local/bolt/edison"
+export APACHE_HOME="/home/httpd/share.aarp.org/html/"
+export JBOSS_HOME="/usr/local/jboss4"
+export EDISON_HOME="/usr/local/edison/"
+export HISTTIMEFORMAT='%Y%m%d %H:%M:%S - '
+
+unset USERNAME
+# end settings for java (from http://ram.aarp.org/cgi-bin/wiki/usemod/wiki.pl?InstallingJava1)
+
+
+# Set Xterm title:  http://tldp.org/HOWTO/Xterm-Title-4.html#ss4.3
+
+case "$TERM" in
+    screen)
+        PROMPT_COMMAND='echo -ne "\033k$HOSTNAME\033\\"'
+        ;;
+    xterm)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        ;;
+    *)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        ;;
+esac
+
+
+
+# GMT
+# ALIASES:
+alias mroe='more'
+alias m='more'
+alias psg='/bin/ps auxgw | egrep -i '
+alias tvm='tail /var/log/messages'
+alias ls='/bin/ls -F'
+alias ll='/bin/ls -l'
+alias be='sudo /bin/su - $@'
+alias bp='sudo -u puppet $@'
+alias pvim='sudo -u puppet vim $@'
+alias psvn='/usr/bin/sudo -u puppet svn --username puppet --config-dir /var/lib/puppet/.subversion --no-auth-cache'
+# Svn status of all puppet areas
+alias puppetstat='svn st -u /etc/puppet/manifests /etc/puppet/modules/ /etc/puppet/test/manifests /etc/puppet/modules/*'
+
+
+umask 002
+# FUNCTIONS:
+
+lh () { /bin/ls -lt $@ | /usr/bin/head; }          
+p() { pushd ${1}; }
+P() { popd ${1}; }
+export ENSCRIPT="--margins=::36:36"
+
+# FUNCTIONS:
+hname () {
+    case `uname -o` in
+        Cygwin) hostname;;
+        *)      hostname -s;;
+    esac
+}
+
+sssh () {
+    HOST=`hname`
+    . ~/.tmp/$HOST.ssh-agent-vars;
+    if [ "x$1" != "x" ]; then
+        ssh $@
+    fi
+}
+
+
+sshsetup () {
+    IDS="$HOME/.ssh/aarp_rsa"
+    HOST=`hname`
+    killall ssh-agent
+	ssh-agent -t 36000 > ~/.tmp/$HOST.ssh-agent-vars;
+	. ~/.tmp/$HOST.ssh-agent-vars;
+	ssh-add
+    for ID in $IDS; do
+        if [ -f $ID ]; then
+            echo "Adding ssh id $ID "
+            ssh-add $ID 
+        fi
+    done
+    sssh
+}
+
+sshkill () {
+    ps -c | grep ssh | awk '{print $1}' | xargs kill;
+}
+

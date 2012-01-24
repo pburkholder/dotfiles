@@ -1,0 +1,48 @@
+# See: http://gentoo-wiki.com/TIP_Using_screen
+
+# ~/.screenrc is normally sourced by Screen at start-up time, but you don't 
+# have to restart your session if you make any modifications. Issue the command 
+# C-a :source .screenrc 
+# to re-source your settings.
+
+# Use Ctrl-J instead of Ctrl-A:
+escape ^Jj
+
+# An alternative hardstatus to display a bar at the bottom listing the
+# windownames and highlighting the current windowname in blue. (This is only
+# enabled if there is no hardstatus setting for your terminal)
+hardstatus on
+hardstatus alwayslastline
+# status from Serge:
+########hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+# A _very_ nice one IMHO is this one with hostname, centered tabs and redmarked active windows:
+# hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+# Status from http://www.redhatmagazine.com/2007/09/27/a-guide-to-gnu-screen/
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
+
+vbell off
+vbell_msg "BEEP"
+defscrollback 10000
+pow_detach_msg "Screen session of \$LOGNAME on \$HOSTNAME\$:cr:\$:nl:ended."
+
+#   Fix GNU Screen backspace misinterpretation
+#   http://www.deadlock.it/2009/02/fix-gnu-screen-backspace-misinterpretation/
+bindkey -d ^? stuff ^H
+bindkey -d ^@ stuff ^H
+
+#screen -L -t Mail 0 mutt
+#screen -t Emacs 1 /usr/local/emacs-22.1/bin/emacs -nw
+#screen 2 bash
+
+# more than 10 screens
+bind -c selectHighs 0 select 10 #these three commands are 
+bind -c selectHighs 1 select 11 #added to the command-class
+bind -c selectHighs 2 select 12 #selectHighs
+bind - command -c selectHighs   #bind the hyphen to 
+                                #command-class selectHighs 
+#Now C-a - 0 opens the 10th terminal under Screen's control (if existing).
+
+select 0
+
+startup_message off
+shelltitle "$ |bash"

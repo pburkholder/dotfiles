@@ -1,0 +1,70 @@
+ignore_host_errors = yes
+terminal_font = 9x15
+terminal_size = 88x24
+
+clusters = pdb dev jbossdev ws-md ws-ca cms-md cms-ca dm-md dm-ca ds-md ds-ca misc-md misc-ca cq5 w-md w-ca clas-md clas-ca clas-misc webt-md webt-ca logs cms dm ds ws misc s classic production all ossec uux-md uux-ca uux uux-cms uux-web puppets as-md as-ca dr
+
+# MISC
+pdb      = potto camel snail
+dev      = w-d.aarp.net w-s.aarp.net w-x.aarp.net cms.aarp.net b1-md.aarp.net cms2.aarp.net as-s.aarp.net as-d.aarp.net cms3.aarp.net
+jbossdev = w-d.aarp.net w-s.aarp.net w-x.aarp.net
+
+# WEB TRANSFORMATION
+ws-md    = ws2-md.aarp.net 
+ws-ca    = ws2-ca.aarp.net 
+ux-md   = ws5-md.aarp.net ws6-md.aarp.net cms3-md cms4-md
+uux-ca   = ws5-ca.aarp.net ws6-ca.aarp.net cms3-ca cms4-ca
+uux-md   = ws5-md.aarp.net ws6-md.aarp.net cms3-md cms4-md
+uux      = uux-md uux-ca
+uux-cms  = cms3-md.aarp.net cms4-md.aarp.net cms3-ca.aarp.net cms4-ca.aarp.net
+uux-web   = ws5-md.aarp.net ws6-md.aarp.net ws5-ca.aarp.net ws6-ca.aarp.net 
+
+cms-md   = cms1-md.aarp.net cms2-md.aarp.net 
+cms-ca   = cms1-ca.aarp.net cms2-ca.aarp.net 
+
+dm-md    = dm1-md.aarp.net dm2-md.aarp.net 
+dm-ca    = dm1-ca.aarp.net dm2-ca.aarp.net
+
+ds-md    = ds1-md.aarp.net ds2-md.aarp.net ds3-md.aarp.net ds4-md.aarp.net
+ds-ca    = ds1-ca.aarp.net ds2-ca.aarp.net ds3-ca.aarp.net ds4-ca.aarp.net
+
+misc-md  = fl1-md.aarp.net log1-md.aarp.net c1-md.aarp.net sp1-md.aarp.net
+misc-ca  = fl1-ca.aarp.net log1-ca.aarp.net c1-ca.aarp.net c2-ca.aarp.net sp1-ca.aarp.net
+
+as-md   = as1-md.aarp.net as2-md.aarp.net
+as-ca   = as1-ca.aarp.net as2-ca.aarp.net
+
+#s-md     = s1-md.aarp.net s2-md.aarp.net 
+#s-ca     = s1-ca.aarp.net s2-ca.aarp.net 
+
+cq5      = w-d.aarp.net w-s.aarp.net cms2.aarp.net cms-md cms-ca
+
+dr       = dr1-d.aarp.net dr2-s.aarp.net dr3-cms.aarp.net dr4-y.aarp.net
+
+# CLASSIC
+w-md     = root@w1-md.aarp.net root@w2-md.aarp.net root@w3-md.aarp.net root@w4-md.aarp.net
+w-ca     = root@w1-ca.aarp.net root@w3-ca.aarp.net root@w4-ca.aarp.net
+clas-md     = root@a1-md.aarp.net root@w1-md.aarp.net root@w2-md.aarp.net root@w3-md.aarp.net root@w4-md.aarp.net
+clas-ca     = root@a1-ca.aarp.net root@w1-ca.aarp.net root@w3-ca.aarp.net root@w4-ca.aarp.net
+clas-misc   = root@bull.aarp.net owl.aarp.org root@goat.aarp.net ram.aarp.org
+# clas-dev   = ram.aarp.org 
+
+# META-TAGS
+logs        = log1-md.aarp.net log1-ca.aarp.net
+cms         = cms-md cms-ca cms.aarp.net
+dm          = dm-md dm-ca
+ds          = ds-md ds-ca
+ws          = ws-md ws-ca
+misc        = misc-md misc-ca
+#s           = s-md s-ca
+webt-md     = ws-md cms-md s-md dm-md ds-md misc-md uux-md as-md
+webt-ca     = ws-ca cms-ca s-ca dm-ca ds-ca misc-ca uux-ca as-ca
+classic     = clas-md clas-ca clas-misc  
+production  =  webt-md webt-ca uux
+all         = pdb dev classic production dr
+
+# OSSEC
+
+ossec       = owl.aarp.org bull.aarp.org goat.aarp.org logs
+puppets     = inf-dev.aarp.net c1-md.aarp.net c1-ca.aarp.net
+
