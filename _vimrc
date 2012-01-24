@@ -98,7 +98,6 @@ map <F3> <ESC>:'<,'>! perltidy<CR>
 au BufRead,BufNewFile *.t set ft=perl
 
 
-
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -109,17 +108,6 @@ iab abpuppet
             \<CR># * management system.  Any changes made locally will be overriden 
             \<CR># * on the next run of Puppet. To permanently effect a change,
             \<CR># * contact your system administration team, 
-            \<CR># *           InternetOperationDSO@aarp.org
+            \<CR># *           CloudOps@audaxhealth.com
             \<CR># **************************** NOTICE ****************************
-            \<CR># $Id
-            \<CR># $URL
 
-" Insert Chef disclaimer
-iab chefwarn
-            \<CR># **************************** NOTICE ****************************
-            \<CR># * This file is centrally managed by the Chef configuration
-            \<CR># * management system.  Any changes made locally will be overriden 
-            \<CR># * on the next run of Chef. To permanently effect a change,
-            \<CR># * contact your system administration team, 
-            \<CR># *           InternetOperationDSO@aarp.org
-            \<CR># **************************** NOTICE ****************************

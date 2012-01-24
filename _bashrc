@@ -15,27 +15,10 @@
 export PS1='[\u@\h \W]$ '
 export EDITOR=/usr/bin/vim
 export LESS='-X'
-export JRUBY_HOME=/opt/aarp/jruby
-export PATH=$PATH:/sbin:/usr/sbin:$JRUBY_HOME/bin:/home/monitors/nagios/plugins
+#export JRUBY_HOME=/opt/aarp/jruby
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:$HOME/bin
 export LANG=C
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export CVSROOT=":pserver:pburkholder@ram:/home/CVS"
-
-
-PATH=$PATH:$HOME/bin
-
-# Settings for JAVA * http://ram.aarp.org/cgi-bin/wiki/usemod/wiki.pl?DeployingBoltToProduction
-export JAVA_HOME=/usr/lib/jvm/java
-export PATH=$JAVA_HOME/bin:/usr/sbin:/sbin:$PATH
-export APACHE_ROOT_WEB="/usr/local/bolt/edison"
-export APACHE_HOME="/home/httpd/share.aarp.org/html/"
-export JBOSS_HOME="/usr/local/jboss4"
-export EDISON_HOME="/usr/local/edison/"
-export HISTTIMEFORMAT='%Y%m%d %H:%M:%S - '
-
-unset USERNAME
-# end settings for java (from http://ram.aarp.org/cgi-bin/wiki/usemod/wiki.pl?InstallingJava1)
-
 
 # Set Xterm title:  http://tldp.org/HOWTO/Xterm-Title-4.html#ss4.3
 
@@ -68,8 +51,6 @@ alias psvn='/usr/bin/sudo -u puppet svn --username puppet --config-dir /var/lib/
 # Svn status of all puppet areas
 alias puppetstat='svn st -u /etc/puppet/manifests /etc/puppet/modules/ /etc/puppet/test/manifests /etc/puppet/modules/*'
 
-
-umask 002
 # FUNCTIONS:
 
 lh () { /bin/ls -lt $@ | /usr/bin/head; }          
