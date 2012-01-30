@@ -1,9 +1,11 @@
 set nocompatible
 syntax on
 " from Perl Best Practices:
-set tabstop=4           "An indentation level every four columns"
+" Changing to puppet style with 2-column tabs
+" http://docs.puppetlabs.com/guides/style_guide.html
+set tabstop=2           "An indentation level every two columns"
 set expandtab           "Convert all tabs to spaces"
-set shiftwidth=4        "Indent/outdent by 4"
+set shiftwidth=2        "Indent/outdent by 2"
 set shiftround          "Always indent/outdent to nearest tabstop"
 "set backup             " keep a backup file
 
