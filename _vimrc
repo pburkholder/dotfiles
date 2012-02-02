@@ -36,11 +36,6 @@ set autoindent                    "Preserve current indent on new lines
 set textwidth=78                  "Wrap at this column
 set backspace=indent,eol,start    "Make backspaces delete sensibly
  
-set tabstop=4                     "Indentation levels every three columns
-set expandtab                     "Convert all tabs typed to spaces
-set shiftwidth=4                  "Indent/outdent by three columns
-set shiftround                    "Indent/outdent to nearest tabstop
- 
 set matchpairs+=<:>               "Allow % to bounce between angles too
 
 set iskeyword+=:                  "Perl double colons are valid part of
