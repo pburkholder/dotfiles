@@ -4,7 +4,7 @@ DOTPATH=${HOME}/Dotfiles
 
 #all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.csshrc ~/.rpmmacros ~/.muttrc
 #all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.tmp 
-all: ~/.vimrc ~/.screenrc ~/.tmp 
+all: ~/.vimrc ~/.screenrc ~/.tmp ~/.profile
 
 #~/dotfiles: $(DOTPATH)
 #	ln -s $(DOTPATH) $(HOME)/dotfiles
@@ -13,6 +13,9 @@ all: ~/.vimrc ~/.screenrc ~/.tmp
 ~/.bashrc: $(DOTPATH)/_bashrc 
 	install $< $@
 	. $@
+
+~/.profile: $(DOTPATH)/_profile
+	install $< $@
 
 ~/.csshrc: $(DOTPATH)/_csshrc
 	install $< $@
