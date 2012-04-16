@@ -45,6 +45,10 @@ set number
 
 set statusline=%<%f%h%m%r%=%{&ff}\ %l,%c%V\ %P
 
+" My color/font selections from
+" http://software-developer.me/changing-the-default-gvimmacvim-color-scheme/2008/10/21/
+:colorscheme koehler
+
 filetype plugin on
 
 "reread .vimrc file after editing
@@ -107,4 +111,5 @@ iab abpuppet
             \<CR># * contact your system administration team, 
             \<CR># *           CloudOps@audaxhealth.com
             \<CR># **************************** NOTICE ****************************
+
 
