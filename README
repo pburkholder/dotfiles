@@ -1,0 +1,9 @@
+# Add this to the end of .bashrc
+
+RSRC=$HOME/Dotfiles/_rightscalerc
+[ -f $RSRC ] && . $RSRC
+
+# and run 'Make' to make
+# .vimrc
+# .screenrc
+# .profile
