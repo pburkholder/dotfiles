@@ -1,8 +1,10 @@
 .PHONY:	all
-DOTPATH=/Users/pburkholder/Projects/3rdParty/pburkholder.com/dotfiles
+#DOTPATH=/Users/pburkholder/Projects/3rdParty/pburkholder.com/dotfiles
+DOTPATH=${HOME}/Dotfiles
 
 #all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.csshrc ~/.rpmmacros ~/.muttrc
-all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.tmp 
+#all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.tmp 
+all: ~/.vimrc ~/.screenrc ~/.tmp 
 
 #~/dotfiles: $(DOTPATH)
 #	ln -s $(DOTPATH) $(HOME)/dotfiles

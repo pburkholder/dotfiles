@@ -1,0 +1,22 @@
+
+sssh () {
+  if [ -r $HOME/.ssh_auth_sock ] ; then
+    $HOME/.ssh_auth_sock
+  else 
+    echo "SSH auth sock file not readable" 1>&2
+  fi
+}
+
+sssh 
+
+#    . ~/.ssh-agent-vars;
+#    if [ "x$1" != "x" ]; then
+#        ssh $@
+#    fi
+
+sshsetup () {
+  ssh-agent  > ~/.ssh-agent-vars;
+#  . ~/.ssh-agent-vars;
+#  ssh-add
+#  sssh
+}
