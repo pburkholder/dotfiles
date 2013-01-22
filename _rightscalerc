@@ -14,3 +14,6 @@ if grep -q rs_hostname $METADATA ; then
   rs_hostname=$( perl -ne 'm/rs_hostname=(.*)/ && print "$1\n"' $METADATA)
   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@$rs_hostname\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
+
+
+export PATH=/home/ec2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:~/bin

@@ -32,6 +32,9 @@ all: ~/.vimrc ~/.screenrc ~/.tmp ~/.profile
 ~/.muttrc: $(DOTPATH)/_muttrc
 	install $< $@
 
+~/.tmux.conf: $(DOTPATH)/_tmux.conf
+	install $< $@
+
 ~/.puppet/puppet.conf: $(DOTPATH)/puppet.conf ~/.puppet
 	install $< $@
 
