@@ -1,4 +1,5 @@
 eval "$(chef shell-init bash)"
+# export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
 
 # EC-METAL cache
 # export ECM_CACHE_PATH=$HOME/Projects/ec-metal/cache
@@ -15,7 +16,7 @@ export EC2_URL=ec2.us-west-2.amazonaws.com
 
 
 [ -x $HOME/.bashrc ] && \
-  . $HOME/.bashrc
+  source $HOME/.bashrc
 
 # The next line updates PATH for the Google Cloud SDK.
 source '/usr/local/google-cloud-sdk/path.bash.inc'

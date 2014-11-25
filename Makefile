@@ -1,14 +1,7 @@
 # .PHONY:	all
 DOTPATH=${HOME}/Projects/Dotfiles
 
-all: 
-	~/.ackrc \
-	~/.bash_profile \
-	~/.bashrc \
-	~/.gitconfig \
-	~/.stove \
-	~/.tmux.conf \
-	~/.vimrc
+all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/bin
 
 ~/.%: %.in
 	install $< $@
@@ -21,6 +14,9 @@ all:
 
 ~/.puppet:
 	install -d $@ -m 0700
+
+binner:
+	chef-apply binner.rb
 
 
 ## Symlinks didn't work out, can't recall why:
