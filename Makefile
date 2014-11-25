@@ -1,14 +1,16 @@
 .PHONY:	all
-#DOTPATH=/Users/pburkholder/Projects/3rdParty/pburkholder.com/dotfiles
-DOTPATH=${HOME}/Dotfiles
+DOTPATH=${HOME}/Projects/Dotfiles
 
-#all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.csshrc ~/.rpmmacros ~/.muttrc
+#all: ~/.bashrc ~/.vimrc ~/.tmux_conf
 #all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.tmp 
 all: ~/.vimrc ~/.screenrc ~/.tmp ~/.profile
 
 #~/dotfiles: $(DOTPATH)
 #	ln -s $(DOTPATH) $(HOME)/dotfiles
 #
+
+~/.%: $(DOTPATH)/%.in
+	install $< $@
 
 ~/.bashrc: $(DOTPATH)/_bashrc 
 	install $< $@

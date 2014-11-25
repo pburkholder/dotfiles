@@ -1,0 +1,27 @@
+eval "$(chef shell-init bash)"
+
+# EC-METAL cache
+# export ECM_CACHE_PATH=$HOME/Projects/ec-metal/cache
+export ECM_CACHE_PATH=$HOME/Library/Caches/Chef
+
+export JAVA_HOME="$(/usr/libexec/java_home)"
+export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.7.1.0/libexec"
+source ~/.aws/keys
+export AWS_SECRET_KEY=$AWS_SECRET_ACCESS_KEY
+export AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID
+
+export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.5.3/libexec"
+export EC2_URL=ec2.us-west-2.amazonaws.com
+
+
+[ -x $HOME/.bashrc ] && \
+  . $HOME/.bashrc
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/usr/local/google-cloud-sdk/path.bash.inc'
+
+# The next line enables bash completion for gcloud.
+source '/usr/local/google-cloud-sdk/completion.bash.inc'
+
+#
+complete -C aws_completer aws
