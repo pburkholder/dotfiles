@@ -1,41 +1,20 @@
-.PHONY:	all
+# .PHONY:	all
 DOTPATH=${HOME}/Projects/Dotfiles
 
-#all: ~/.bashrc ~/.vimrc ~/.tmux_conf
-#all: ~/.bashrc ~/.vimrc ~/.screenrc ~/.tmp 
-all: ~/.vimrc ~/.screenrc ~/.tmp ~/.profile
+all: 
+	~/.ackrc \
+	~/.bash_profile \
+	~/.bashrc \
+	~/.gitconfig \
+	~/.stove \
+	~/.tmux.conf \
+	~/.vimrc
 
-#~/dotfiles: $(DOTPATH)
-#	ln -s $(DOTPATH) $(HOME)/dotfiles
-#
-
-~/.%: $(DOTPATH)/%.in
+~/.%: %.in
 	install $< $@
 
-~/.bashrc: $(DOTPATH)/_bashrc 
-	install $< $@
-	. $@
-
-~/.profile: $(DOTPATH)/_profile
-	install $< $@
-
-~/.csshrc: $(DOTPATH)/_csshrc
-	install $< $@
-	
-~/.rpmmacros: $(DOTPATH)/_rpmmacros
-	install $< $@
-
-~/.screenrc: $(DOTPATH)/_screenrc
-	install $< $@
-
-~/.vimrc: $(DOTPATH)/_vimrc
-	install $< $@
-
-~/.muttrc: $(DOTPATH)/_muttrc
-	install $< $@
-
-~/.tmux.conf: $(DOTPATH)/_tmux.conf
-	install $< $@
+~/.tmp:
+	install -d $@ -m 0700
 
 ~/.puppet/puppet.conf: $(DOTPATH)/puppet.conf ~/.puppet
 	install $< $@
@@ -43,5 +22,8 @@ all: ~/.vimrc ~/.screenrc ~/.tmp ~/.profile
 ~/.puppet:
 	install -d $@ -m 0700
 
-~/.tmp:
-	install -d $@ -m 0700
+
+## Symlinks didn't work out, can't recall why:
+#~/dotfiles: $(DOTPATH)
+#	ln -s $(DOTPATH) $(HOME)/dotfiles
+#

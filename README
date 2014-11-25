@@ -1,9 +1,8 @@
-# Add this to the end of .bashrc
+'make' to make
 
-RSRC=$HOME/Dotfiles/_rightscalerc
-[ -f $RSRC ] && . $RSRC
-
-# and run 'Make' to make
-# .vimrc
-# .screenrc
-# .profile
+## Obsoleted files still in project history:
+_csshrc
+_muttrc
+_rpmmacros
+_screenrc
+puppet.conf
