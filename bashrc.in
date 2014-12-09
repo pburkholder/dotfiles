@@ -23,6 +23,9 @@ for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
   source /usr/local/etc/bash_completion.d/$complete
 done
 
+# Harvest command line
+complete -W "`cat ~/.hcl/aliases`" hcl
+
 set -o vi
 
 ## replaced with symlinks in ~/bin
@@ -81,6 +84,11 @@ sshkill () {
 ##
 alias wat='gcloud compute instances list; knife node list'
 alias gce='gcloud compute'
+
+##
+## Highlighting
+##
+alias dark='pbpaste | highlight --syntax=rb -O rtf --style nightshimmer | pbcopy'
 gceweb(){
   gcloud compute instances list | grep web | perl -ane 'print "$F[0] $F[4]\n"'
 }
