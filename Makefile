@@ -1,7 +1,7 @@
 # .PHONY:	all
 DOTPATH=${HOME}/Projects/Dotfiles
 
-all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc binner
+all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc binner ~/.git-prompt.sh
 
 ~/.%: %.in
 	install $< $@
