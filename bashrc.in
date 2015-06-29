@@ -119,3 +119,16 @@ hname () {
     esac
 }
 
+# sudo pip install virtualenvwrapper, then:
+VIRTUALENV_SH=/usr/local/bin/virtualenvwrapper.sh
+if [ -x $VIRTUALENV_SH ]; then
+  [ -d $HOME/.virtualenvs ] || mkdir $HOME/.virtualenvs
+  export WORKON_HOME=$HOME/.virtualenvs
+  source $VIRTUALENV_SH
+fi
+
+# CHEF stuff
+alias fluxx='export CHEF_SERVER=fluxx'
+alias pdbchef='export CHEF_SERVER=pdbchef'
+alias pburkholder_com='export CHEFSERVER=pburkholder_com'
+export SSL_CERT_FILE=$HOME/.chef/trusted_certs/bundle.crt
