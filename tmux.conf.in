@@ -28,3 +28,7 @@ setw -g aggressive-resize on
 # # Highlight active window
 # set-window-option -g window-status-current-bg red
 set -g history-limit 20000
+
+# http://stackoverflow.com/questions/4889724/how-can-you-easily-tell-which-pane-in-tmux-is-focused
+set-option -g pane-active-border-bg blue
+
