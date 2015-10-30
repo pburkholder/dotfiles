@@ -133,4 +133,7 @@ alias pdbchef='export CHEF_SERVER=pdbchef'
 alias pburkholder_com='export CHEFSERVER=pburkholder_com'
 alias myaws='export AWS_DEFAULT_PROFILE=pburkholder'
 alias chefaws='export AWS_DEFAULT_PROFILE=default'
-export SSL_CERT_FILE=$HOME/.chef/trusted_certs/bundle.crt
+# my bundle has my own CA
+export SSL_CERT_FILE=$HOME/.chef/bundle.crt
+
+[ -r $HOME/.harvestrc ] && source $HOME/.harvestrc
