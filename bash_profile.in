@@ -49,4 +49,6 @@ PYPATH="$HOME/Library/Python/2.7/bin"
 [ -d /usr/local/terraform ] && \
   export PATH=$PATH:/usr/local/terraform 
 
+# Secrets include:
+#   HOMEBREW_GITHUB_API_TOKEN
 [ -f $HOME/.secrets ] && source $HOME/.secrets
