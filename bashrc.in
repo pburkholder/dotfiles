@@ -20,7 +20,8 @@ export EDITOR=/usr/bin/vim
 
 
 for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
-  source /usr/local/etc/bash_completion.d/$complete
+  [ -f /usr/local/etc/bash_completion.d/$complete ] && \
+    source /usr/local/etc/bash_completion.d/$complete
 done
 
 # Harvest command line
@@ -137,3 +138,28 @@ alias chefaws='export AWS_DEFAULT_PROFILE=default'
 export SSL_CERT_FILE=$HOME/.chef/bundle.crt
 
 [ -r $HOME/.harvestrc ] && source $HOME/.harvestrc
+
+# Volatility :::
+#   mkdir -p /Users/pburkholder/Library/Python/2.7/lib/python/site-packages
+#  echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >>
+#  /Users/pburkholder/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+
+
+function vault-demo-ids() {
+ aws autoscaling \
+     describe-auto-scaling-groups --auto-scaling-group-names vault-provision | 
+   jq -r '[.AutoScalingGroups[].Instances[].InstanceId] | join(" ")'
+ }
+
+
+function vault-demo-ips() {
+   instance_ids=$(vault-demo-ids)
+   aws ec2 describe-instances --instance-ids $instance_ids | 
+     jq -r '.Reservations[].Instances[].PublicIpAddress'
+}
+
+alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-group --no-should-decrement-desired-capacity --instance-id '  
+
+alias inspec_exec='inspec exec
+cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
+--key-files  ~/.ssh/pburkholder-one'

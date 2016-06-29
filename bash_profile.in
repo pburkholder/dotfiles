@@ -17,10 +17,36 @@ export EC2_URL=https://ec2.us-west-2.amazonaws.com
   source $HOME/.bashrc
 
 # The next line updates PATH for the Google Cloud SDK.
-source '/usr/local/google-cloud-sdk/path.bash.inc'
+[ -f /usr/local/google-cloud-sdk/path.bash.inc ] && \
+  source '/usr/local/google-cloud-sdk/path.bash.inc'
+
 
 # The next line enables bash completion for gcloud.
-source '/usr/local/google-cloud-sdk/completion.bash.inc'
+[ -f /usr/local/google-cloud-sdk/completion.bash.inc ] && \
+  source '/usr/local/google-cloud-sdk/completion.bash.inc'
 
 #
 complete -C aws_completer aws
+
+# Use virtualbox by default
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+
+# brew go
+if [ -d $HOME/go ] ; then
+  export GOPATH=/Users/pburkholder/go
+  export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
+fi
+
+# python user install
+PYPATH="$HOME/Library/Python/2.7/bin"
+[ -d $PYPATH ] && export PATH=$PATH:$PYPATH
+
+
+# tex with BasicTex from https://tug.org/mactex/morepackages.html
+[ -d /usr/local/texlive/2015basic/bin/x86_64-darwin ] && \
+  export PATH=$PATH:/usr/local/texlive/2015basic/bin/x86_64-darwin
+
+[ -d /usr/local/terraform ] && \
+  export PATH=$PATH:/usr/local/terraform 
+
+[ -f $HOME/.secrets ] && source $HOME/.secrets
