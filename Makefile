@@ -1,7 +1,10 @@
 # .PHONY:	all
 DOTPATH=${HOME}/Projects/Dotfiles
 
-all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc binner ~/.git-prompt.sh ~/.secrets
+
+BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch
+
+all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh ~/.secrets $(BIN)
 
 ~/.%: %.in
 	install $< $@
@@ -15,8 +18,14 @@ all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vi
 ~/.puppet:
 	install -d $@ -m 0700
 
-binner:
-	chef-apply binner.rb
+~/bin:
+	install -d $@ -m 0700
+
+~/bin/aws_switch: bin/aws_switch
+	install -m 0755 $<  $@
+
+~/bin/vmrun: 
+	ln -s "/Applications/VMware Fusion.app/Contents/Library/vmrun" $@
 
 
 ## Symlinks didn't work out, can't recall why:

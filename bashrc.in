@@ -163,3 +163,5 @@ alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-gro
 alias inspec_exec='inspec exec
 cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
 --key-files  ~/.ssh/pburkholder-one'
+
+alias tf='terraform'
