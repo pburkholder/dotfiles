@@ -35,7 +35,11 @@ export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 if [ -d $HOME/go ] ; then
   export GOPATH=/Users/pburkholder/go
   export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
+  # temporary for compliance-masonry
+  CM=$GOPATH/src/github.com/opencontrol/compliance-masonry
+  [ -x $CM/compliance-masonry ] && export PATH=$CM:$PATH
 fi
+
 
 # python user install
 PYPATH="$HOME/Library/Python/2.7/bin"
@@ -47,7 +51,7 @@ PYPATH="$HOME/Library/Python/2.7/bin"
   export PATH=$PATH:/usr/local/texlive/2015basic/bin/x86_64-darwin
 
 [ -d /usr/local/terraform ] && \
-  export PATH=$PATH:/usr/local/terraform 
+  export PATH=$PATH:/usr/local/terraform
 
 # Secrets include:
 #   HOMEBREW_GITHUB_API_TOKEN
