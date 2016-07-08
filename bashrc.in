@@ -26,10 +26,6 @@ for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
     source /usr/local/etc/bash_completion.d/$complete
 done
 
-if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
-  GIT_PROMPT_THEME=Default
-  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
-fi
 
 # Harvest command line
 complete -W "`cat ~/.hcl/aliases`" hcl
@@ -172,3 +168,12 @@ cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
 --key-files  ~/.ssh/pburkholder-one'
 
 alias tf='terraform'
+
+# put at end so not clobbered
+if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+  echo "Adding gitprompt"
+  GIT_PROMPT_THEME=Default
+  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+else
+  echo "No gitprompt"
+fi
