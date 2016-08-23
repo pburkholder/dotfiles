@@ -136,9 +136,9 @@ alias fluxx='export CHEF_SERVER=fluxx'
 alias pdbchef='export CHEF_SERVER=pdbchef'
 alias pburkholder_com='export CHEFSERVER=pburkholder_com'
 alias myaws='export AWS_DEFAULT_PROFILE=pburkholder'
-alias chefaws='export AWS_DEFAULT_PROFILE=default'
+# alias chefaws='export AWS_DEFAULT_PROFILE=default'
 # my bundle has my own CA
-export SSL_CERT_FILE=$HOME/.chef/bundle.crt
+# export SSL_CERT_FILE=$HOME/.chef/bundle.crt
 
 [ -r $HOME/.harvestrc ] && source $HOME/.harvestrc
 
@@ -148,24 +148,25 @@ export SSL_CERT_FILE=$HOME/.chef/bundle.crt
 #  /Users/pburkholder/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 
 
-function vault-demo-ids() {
- aws autoscaling \
-     describe-auto-scaling-groups --auto-scaling-group-names vault-provision | 
-   jq -r '[.AutoScalingGroups[].Instances[].InstanceId] | join(" ")'
- }
+#function vault-demo-ids() {
+# aws autoscaling \
+#     describe-auto-scaling-groups --auto-scaling-group-names vault-provision | 
+#   jq -r '[.AutoScalingGroups[].Instances[].InstanceId] | join(" ")'
+# }
 
 
-function vault-demo-ips() {
-   instance_ids=$(vault-demo-ids)
-   aws ec2 describe-instances --instance-ids $instance_ids | 
-     jq -r '.Reservations[].Instances[].PublicIpAddress'
-}
+#function vault-demo-ips() {
+#   instance_ids=$(vault-demo-ids)
+#   aws ec2 describe-instances --instance-ids $instance_ids | 
+#     jq -r '.Reservations[].Instances[].PublicIpAddress'
+#}
 
-alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-group --no-should-decrement-desired-capacity --instance-id '  
+#alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-group --no-should-decrement-desired-capacity --instance-id '  
 
-alias inspec_exec='inspec exec
-cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
---key-files  ~/.ssh/pburkholder-one'
+#alias inspec_exec='inspec exec
+#cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
+#
+#--key-files  ~/.ssh/pburkholder-one'
 
 alias tf='terraform'
 

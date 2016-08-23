@@ -25,9 +25,38 @@ all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vi
 	install -m 0755 $<  $@
 
 ~/bin/vmrun: 
-	ln -s "/Applications/VMware Fusion.app/Contents/Library/vmrun" $@
+	ln -fs "/Applications/VMware Fusion.app/Contents/Library/vmrun" $@
 
 
+APPS=bash-git-prompt
+
+apps:
+	for app in $(APPS); do brew install $$app; done
+
+/Applications/iTerm.app:
+	brew install Caskroom/cask/iterm2
+
+/Applications/Atom.app:
+	brew install Caskroom/cask/atom
+
+flycut: /Applications/Flycut.app
+
+/Applications/Flycut.app:
+	brew install Caskroom/cask/flycut
+
+alfred: /Applications/Alfred.app
+
+/Applications/Alfred.app:
+	brew install Caskroom/cask/alfred
+
+/Applications/Sizeup.app:
+	brew install Caskroom/cask/sizeup
+
+/Applications/Rescuetime.app:
+	brew install Caskroom/cask/rescuetime
+
+/Applications/Evernote.app:
+	brew install Caskroom/cask/evernote
 ## Symlinks didn't work out, can't recall why:
 #~/dotfiles: $(DOTPATH)
 #	ln -s $(DOTPATH) $(HOME)/dotfiles

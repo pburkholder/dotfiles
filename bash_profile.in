@@ -58,4 +58,4 @@ PYPATH="$HOME/Library/Python/2.7/bin"
 [ -f $HOME/.secrets ] && source $HOME/.secrets
 
 # Source my aws credentials
-[ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
+# [ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
