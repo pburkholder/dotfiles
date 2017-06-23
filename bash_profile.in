@@ -7,7 +7,12 @@ export ECM_CACHE_PATH=$HOME/Library/Caches/Chef
 
 export JAVA_HOME="$(/usr/libexec/java_home)"
 export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.7.1.0/libexec"
-export AWS_DEFAULT_PROFILE=pburkholder
+
+if [ id gsa_x > /dev/null ]; then 
+    export AWS_DEFAULT_PROFILE=govcloud
+else
+    export AWS_DEFAULT_PROFILE=pburkholder
+fi
 
 export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.5.3/libexec"
 export EC2_URL=https://ec2.us-west-2.amazonaws.com
@@ -33,7 +38,7 @@ export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 # brew go
 if [ -d $HOME/go ] ; then
-  export GOPATH=/Users/pburkholder/go
+  export GOPATH=$HOME/go
   export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
   # temporary for compliance-masonry
   CM=$GOPATH/src/github.com/opencontrol/compliance-masonry

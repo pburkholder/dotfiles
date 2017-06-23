@@ -45,6 +45,7 @@ alias tvm='tail /var/log/messages'
 alias ls='/bin/ls -F'
 alias ll='/bin/ls -l'
 alias be='sudo /bin/su - $@'
+alias g='git'
 
 # FUNCTIONS:
 lh () { /bin/ls -lt $@ | /usr/bin/head; }          
@@ -136,6 +137,7 @@ alias fluxx='export CHEF_SERVER=fluxx'
 alias pdbchef='export CHEF_SERVER=pdbchef'
 alias pburkholder_com='export CHEFSERVER=pburkholder_com'
 alias myaws='export AWS_DEFAULT_PROFILE=pburkholder'
+alias gcaws='export AWS_DEFAULT_PROFILE=govcloud'
 # alias chefaws='export AWS_DEFAULT_PROFILE=default'
 # my bundle has my own CA
 # export SSL_CERT_FILE=$HOME/.chef/bundle.crt
@@ -178,3 +180,6 @@ if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
 else
   echo "No gitprompt"
 fi
+
+# Not sure if this is needed
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
