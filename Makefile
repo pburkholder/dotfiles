@@ -1,8 +1,7 @@
 # .PHONY:	all
 DOTPATH=${HOME}/Projects/Dotfiles
 
-
-BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch
+BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch ~/bin/aws_emit
 
 all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh ~/.secrets $(BIN)
 
@@ -22,6 +21,9 @@ all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vi
 	install -d $@ -m 0700
 
 ~/bin/aws_switch: bin/aws_switch
+	install -m 0755 $<  $@
+
+~/bin/aws_emit: bin/aws_emit
 	install -m 0755 $<  $@
 
 ~/bin/vmrun: 
