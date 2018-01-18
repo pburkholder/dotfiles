@@ -26,10 +26,6 @@ for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
     source /usr/local/etc/bash_completion.d/$complete
 done
 
-
-# Harvest command line
-complete -W "`cat ~/.hcl/aliases`" hcl
-
 set -o vi
 
 ## replaced with symlinks in ~/bin
@@ -52,37 +48,6 @@ lh () { /bin/ls -lt $@ | /usr/bin/head; }
 p() { pushd ${1}; }
 P() { popd ${1}; }
 export ENSCRIPT="--margins=::36:36"
-
-## 
-## SSH jankiness for ssh-agent forwarding
-##
-sssh () {
-    HOST=`hname`
-    . ~/.tmp/$HOST.ssh-agent-vars;
-    if [ "x$1" != "x" ]; then
-        ssh $@
-    fi
-}
-
-sshsetup () {
-    IDS="$HOME/.ssh/aarp_rsa"
-    HOST=`hname`
-    killall ssh-agent
-	ssh-agent -t 36000 > ~/.tmp/$HOST.ssh-agent-vars;
-	. ~/.tmp/$HOST.ssh-agent-vars;
-	ssh-add
-    for ID in $IDS; do
-        if [ -f $ID ]; then
-            echo "Adding ssh id $ID "
-            ssh-add $ID 
-        fi
-    done
-    sssh
-}
-
-sshkill () {
-    ps -c | grep ssh | awk '{print $1}' | xargs kill;
-}
 
 ##
 ## Google Cloud Stuff
@@ -183,3 +148,5 @@ fi
 
 # Not sure if this is needed
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export HISTTIMEFORMAT="%d/%m/%y %T "
+

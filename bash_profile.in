@@ -1,4 +1,4 @@
-eval "$(chef shell-init bash)"
+# eval "$(chef shell-init bash)"
 # export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
 export PATH=$PATH:$HOME/bin
 
@@ -8,12 +8,12 @@ export ECM_CACHE_PATH=$HOME/Library/Caches/Chef
 export JAVA_HOME="$(/usr/libexec/java_home)"
 export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.7.1.0/libexec"
 
-if [ id gsa_x > /dev/null ]; then 
-    export AWS_DEFAULT_PROFILE=govcloud
-else
-    export AWS_DEFAULT_PROFILE=pburkholder
-fi
-
+#if [ (id gsa_x > /dev/null) ]; then 
+#    export AWS_DEFAULT_PROFILE=govcloud
+#else
+#    export AWS_DEFAULT_PROFILE=pburkholder
+#fi
+#
 export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.5.3/libexec"
 export EC2_URL=https://ec2.us-west-2.amazonaws.com
 
@@ -64,3 +64,9 @@ PYPATH="$HOME/Library/Python/2.7/bin"
 
 # Source my aws credentials
 # [ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
+
+if [ -r /usr/local/opt/nvm/nvm.sh ] ; then 
+    mkdir -p ~/.nvm
+    export NVM_DIR="$HOME/.nvm"
+    . "/usr/local/opt/nvm/nvm.sh"
+fi
