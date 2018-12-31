@@ -3,7 +3,7 @@ DOTPATH=${HOME}/Projects/Dotfiles
 
 BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch ~/bin/aws_emit
 
-all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh ~/.secrets $(BIN)
+all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN)
 
 ~/.%: %.in
 	install $< $@
