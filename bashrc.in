@@ -21,9 +21,16 @@ export EDITOR=/usr/bin/vim
 [ -f $(brew --prefix)/etc/bash_completion ] &&
   source  $(brew --prefix)/etc/bash_completion
 
-for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
-  [ -f /usr/local/etc/bash_completion.d/$complete ] && \
-    source /usr/local/etc/bash_completion.d/$complete
+for complete in \
+    git-completion.bash \
+    git-prompt.sh \
+    az \
+    brew \
+    cf-cli \
+    hub.bash_completion.sh 
+do
+  [ -f $(brew --prefix)/etc/bash_completion.d/$complete ] && \
+    source $(brew --prefix)/etc/bash_completion.d/$complete
 done
 
 set -o vi
