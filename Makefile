@@ -2,8 +2,9 @@
 
 BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch ~/bin/aws_emit
 VSCODE_SETTTINGS := $(HOME)/Library/Application\ Support/Code/User/settings.json
-
-all: ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
+ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
+ALL += ~/.config/Powershell/Microsoft.PowerShell_profile.ps1
+all: $(ALL)
 
 .PHONY: brewnote
 brewnote:
@@ -42,6 +43,12 @@ vscode-extensions:
 
 ~/.tmp:
 	install -d $@ -m 0700
+
+~/.config/Powershell:
+	install -d $@ -m 0700
+
+~/.config/Powershell/Microsoft.PowerShell_profile.ps1: profile.ps1
+	install $< $@
 
 ~/bin:
 	install -d $@ -m 0700
