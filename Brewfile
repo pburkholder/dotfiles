@@ -28,3 +28,5 @@ cask "alfred"      # Because, awesome.
 cask "1password"
 cask "toggl"       # TogglDesktop for time tracking
 
+# MBP apps
+brew "azure-cli"

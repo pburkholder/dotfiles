@@ -34,6 +34,8 @@ vscode-extensions:
 	code --install-extension vscodevim.vim
 	code --install-extension vstirbu.vscode-mermaid-preview
 	code --install-extension yzane.markdown-pdf
+	code --install-extension yzhang.markdown-all-in-one
+
 
 ~/.%: %.in
 	install $< $@
