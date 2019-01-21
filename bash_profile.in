@@ -21,9 +21,10 @@ export EC2_URL=https://ec2.us-west-2.amazonaws.com
   source '/usr/local/google-cloud-sdk/path.bash.inc'
 
 
-# The next line enables bash completion for gcloud.
-[ -f /usr/local/google-cloud-sdk/completion.bash.inc ] && \
-  source '/usr/local/google-cloud-sdk/completion.bash.inc'
+# The next line enables bash completion for gcloud
+GCLOUD_COMPLETION=/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc
+[ -f $GCLOUD_COMPLETION ] && \
+  source $GCLOUD_COMPLETION
 
 #
 complete -C aws_completer aws
