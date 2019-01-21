@@ -1,0 +1,13 @@
+// Place your settings in this file to overwrite the default settings
+//    "editor.lineNumbers": "relative",
+{
+    "window.zoomLevel": 1,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    "editor.tabCompletion": true,
+    "workbench.sideBar.location": "left",
+    "vim.disableAnnoyingNeovimMessage": true,
+    "files.associations": {
+        "*.erb": "ruby"
+    }
+}

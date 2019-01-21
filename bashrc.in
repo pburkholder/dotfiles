@@ -18,14 +18,20 @@ export EDITOR=/usr/bin/vim
 # export LANG=C
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
+[ -f $(brew --prefix)/etc/bash_completion ] &&
+  source  $(brew --prefix)/etc/bash_completion
 
-for complete in git-completion.bash git-prompt.sh hub.bash_completion.sh; do
-  [ -f /usr/local/etc/bash_completion.d/$complete ] && \
-    source /usr/local/etc/bash_completion.d/$complete
+for complete in \
+    git-completion.bash \
+    git-prompt.sh \
+    az \
+    brew \
+    cf-cli \
+    hub.bash_completion.sh 
+do
+  [ -f $(brew --prefix)/etc/bash_completion.d/$complete ] && \
+    source $(brew --prefix)/etc/bash_completion.d/$complete
 done
-
-# Harvest command line
-complete -W "`cat ~/.hcl/aliases`" hcl
 
 set -o vi
 
@@ -42,43 +48,13 @@ alias tvm='tail /var/log/messages'
 alias ls='/bin/ls -F'
 alias ll='/bin/ls -l'
 alias be='sudo /bin/su - $@'
+alias g='git'
 
 # FUNCTIONS:
 lh () { /bin/ls -lt $@ | /usr/bin/head; }          
 p() { pushd ${1}; }
 P() { popd ${1}; }
 export ENSCRIPT="--margins=::36:36"
-
-## 
-## SSH jankiness for ssh-agent forwarding
-##
-sssh () {
-    HOST=`hname`
-    . ~/.tmp/$HOST.ssh-agent-vars;
-    if [ "x$1" != "x" ]; then
-        ssh $@
-    fi
-}
-
-sshsetup () {
-    IDS="$HOME/.ssh/aarp_rsa"
-    HOST=`hname`
-    killall ssh-agent
-	ssh-agent -t 36000 > ~/.tmp/$HOST.ssh-agent-vars;
-	. ~/.tmp/$HOST.ssh-agent-vars;
-	ssh-add
-    for ID in $IDS; do
-        if [ -f $ID ]; then
-            echo "Adding ssh id $ID "
-            ssh-add $ID 
-        fi
-    done
-    sssh
-}
-
-sshkill () {
-    ps -c | grep ssh | awk '{print $1}' | xargs kill;
-}
 
 ##
 ## Google Cloud Stuff
@@ -133,9 +109,10 @@ alias fluxx='export CHEF_SERVER=fluxx'
 alias pdbchef='export CHEF_SERVER=pdbchef'
 alias pburkholder_com='export CHEFSERVER=pburkholder_com'
 alias myaws='export AWS_DEFAULT_PROFILE=pburkholder'
-alias chefaws='export AWS_DEFAULT_PROFILE=default'
+alias gcaws='export AWS_DEFAULT_PROFILE=govcloud'
+# alias chefaws='export AWS_DEFAULT_PROFILE=default'
 # my bundle has my own CA
-export SSL_CERT_FILE=$HOME/.chef/bundle.crt
+# export SSL_CERT_FILE=$HOME/.chef/bundle.crt
 
 [ -r $HOME/.harvestrc ] && source $HOME/.harvestrc
 
@@ -145,23 +122,40 @@ export SSL_CERT_FILE=$HOME/.chef/bundle.crt
 #  /Users/pburkholder/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 
 
-function vault-demo-ids() {
- aws autoscaling \
-     describe-auto-scaling-groups --auto-scaling-group-names vault-provision | 
-   jq -r '[.AutoScalingGroups[].Instances[].InstanceId] | join(" ")'
- }
+#function vault-demo-ids() {
+# aws autoscaling \
+#     describe-auto-scaling-groups --auto-scaling-group-names vault-provision | 
+#   jq -r '[.AutoScalingGroups[].Instances[].InstanceId] | join(" ")'
+# }
 
 
-function vault-demo-ips() {
-   instance_ids=$(vault-demo-ids)
-   aws ec2 describe-instances --instance-ids $instance_ids | 
-     jq -r '.Reservations[].Instances[].PublicIpAddress'
-}
+#function vault-demo-ips() {
+#   instance_ids=$(vault-demo-ids)
+#   aws ec2 describe-instances --instance-ids $instance_ids | 
+#     jq -r '.Reservations[].Instances[].PublicIpAddress'
+#}
 
-alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-group --no-should-decrement-desired-capacity --instance-id '  
+#alias terminate-vault-id='aws autoscaling terminate-instance-in-auto-scaling-group --no-should-decrement-desired-capacity --instance-id '  
 
-alias inspec_exec='inspec exec
-cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
---key-files  ~/.ssh/pburkholder-one'
+#alias inspec_exec='inspec exec
+#cookbooks/vault-demo/test/integration/default/serverspec/default_spec.rb
+#
+#--key-files  ~/.ssh/pburkholder-one'
 
 alias tf='terraform'
+alias sandbox='cf target -o sandbox-gsa -s peter.burkholder'
+alias sbox=sandbox
+
+# put at end so not clobbered
+if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+  echo "Adding gitprompt"
+  GIT_PROMPT_THEME=Default
+  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+else
+  echo "No gitprompt. Try 'brew install bash-git-prompt'"
+fi
+
+# Not sure if this is needed
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
