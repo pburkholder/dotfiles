@@ -1,42 +1,55 @@
 # .PHONY:	all
 
-BIN := ~/bin/ ~/bin/vmrun  ~/bin/aws_switch ~/bin/aws_emit
+BIN := ~/bin/ ~/bin/aws_switch ~/bin/aws_emit
 VSCODE_SETTTINGS := $(HOME)/Library/Application\ Support/Code/User/settings.json
 ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
 ALL += ~/.config/Powershell/Microsoft.PowerShell_profile.ps1
+ALL += vscode-extensions
+
+# not used: ~/bin/vmrun 
+
 all: $(ALL)
 
 .PHONY: brewnote
 brewnote:
 	@echo "run 'brew bundle install Brewfile' to install"
 
-# code --list-extensions | xargs -L1 echo code --install-extension
-.PHONY: vscode vscode-extensions
-vscode: vscode-extensions $(VSCODE_SETTTINGS)
+~/bin/git-seekret:
+	curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
 
+.PHONY: vscode-extensions install-vscode
+
+vscode: install-vscode $(VSCODE_SETTTINGS) vscode-extensions
+
+install-vscode:
+	brew cask install visual-studio-code
+	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+
+# need to quote as '$@' because of spaces in filename
 $(VSCODE_SETTTINGS): vscode-settings.json
-	install -b $< \"$@\"
+	install -b $< '$@' 
+
+define extensions
+DavidAnson.vscode-markdownlint 
+jetmartin.bats marvhen.reflow-markdown
+mauve.terraform
+ms-vscode.powershell
+PeterJausovec.vscode-docker
+streetsidesoftware.code-spell-checker
+timonwong.shellcheck
+vscodevim.vim
+vstirbu.vscode-mermaid-preview
+yzane.markdown-pdf
+yzhang.markdown-all-in-one
+endef 
+
+export extensions
 
 vscode-extensions:
-	code --install-extension DavidAnson.vscode-markdownlint
-	code --install-extension flesler.url-encode
-	code --install-extension jetmartin.bats
-	code --install-extension marvhen.reflow-markdown
-	code --install-extension mauve.terraform
-	code --install-extension ms-python.python
-	code --install-extension ms-vscode.csharp
-	code --install-extension ms-vscode.Go
-	code --install-extension ms-vscode.PowerShell
-	code --install-extension PeterJausovec.vscode-docker
-	code --install-extension rebornix.ruby
-	code --install-extension redhat.java
-	code --install-extension streetsidesoftware.code-spell-checker
-	code --install-extension timonwong.shellcheck
-	code --install-extension vscodevim.vim
-	code --install-extension vstirbu.vscode-mermaid-preview
-	code --install-extension yzane.markdown-pdf
-	code --install-extension yzhang.markdown-all-in-one
-
+	for ex in $$extensions; do \
+	  code --list-extensions | grep $$ex > /dev/null || \
+	    echo code --install-extension $$ex; \
+	done
 
 ~/.%: %.in
 	install $< $@
@@ -47,7 +60,7 @@ vscode-extensions:
 ~/.config/Powershell:
 	install -d $@ -m 0700
 
-~/.config/Powershell/Microsoft.PowerShell_profile.ps1: profile.ps1
+~/.config/Powershell/Microsoft.PowerShell_profile.ps1: profile.ps1 ~/.config/Powershell
 	install $< $@
 
 ~/bin:

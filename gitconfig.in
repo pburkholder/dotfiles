@@ -1,3 +1,27 @@
 [user]
 	name = Peter Burkholder
-	email = peterb@getchef.com
+	email = peter.burkholder@gsa.gov
+
+[alias]
+   co = checkout
+   poh = push origin HEAD
+   cam = commit -am
+
+[color]
+    ui = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yello
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
