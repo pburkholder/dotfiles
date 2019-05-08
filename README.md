@@ -14,15 +14,13 @@ cd dotfiles
 make
 ```
 
+# To do:
 
+Set up startup items with:
 
-git clone 
+```
 
-'make' to make
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/path/to/itemname", hidden:false}'
 
-## Obsoleted files still in project history:
-_csshrc
-_muttrc
-_rpmmacros
-_screenrc
-puppet.conf
+osascript -e 'tell application "System Events" to get the name of every login item'
+```
