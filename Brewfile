@@ -30,3 +30,7 @@ cask "toggl"       # TogglDesktop for time tracking
 
 # MBP apps
 brew "azure-cli"
+
+cask "powershell"
+cask "docker"
+cask "alfred"
