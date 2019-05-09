@@ -1,0 +1,6 @@
+cask "spotify"
+cask "1password"
+cask "backblaze"
+cask "google-chrome", args: { appdir: "/Applications" }
+# tap "apogee-duet"
+cask "duet"

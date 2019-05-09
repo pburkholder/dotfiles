@@ -34,3 +34,7 @@ brew "azure-cli"
 cask "powershell"
 cask "docker"
 cask "alfred"
+cask "slack"
+
+cask "intelliscape-caffeine"
+
