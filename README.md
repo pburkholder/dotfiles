@@ -14,6 +14,14 @@ cd dotfiles
 make
 ```
 
+Then:
+
+```
+brew bundle install
+# optionally
+brew bundle install --file=Brewfile.mine
+```
+
 # To do:
 
 Set up startup items with:

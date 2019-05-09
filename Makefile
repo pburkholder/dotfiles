@@ -4,7 +4,7 @@ BIN := ~/bin/ ~/bin/aws_switch ~/bin/aws_emit
 VSCODE_SETTTINGS := $(HOME)/Library/Application\ Support/Code/User/settings.json
 ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
 ALL += ~/.config/Powershell/Microsoft.PowerShell_profile.ps1
-ALL += vscode-extensions
+#:ALL += vscode-extensions
 
 # not used: ~/bin/vmrun 
 
