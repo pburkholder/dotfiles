@@ -14,6 +14,7 @@ brew "pyenv-virtualenvwrapper"
 brew "the_silver_searcher"
 brew "cloudfoundry/tap/cf-cli"
 cask "github"
+cask "vmware-horizon-client"
 
 # my sanity apps
 
@@ -37,4 +38,3 @@ cask "alfred"
 cask "slack"
 
 cask "intelliscape-caffeine"
-
