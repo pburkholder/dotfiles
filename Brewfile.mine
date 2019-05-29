@@ -6,3 +6,4 @@ cask "google-chrome", args: { appdir: "/Applications" }
 cask "duet"
 cask "keybase"
 cask "deckset"
+cask "send-to-kindle"
