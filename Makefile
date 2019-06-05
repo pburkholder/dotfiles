@@ -48,7 +48,7 @@ export extensions
 vscode-extensions:
 	for ex in $$extensions; do \
 	  code --list-extensions | grep $$ex > /dev/null || \
-	    echo code --install-extension $$ex; \
+	    code --install-extension $$ex; \
 	done
 
 ~/.%: %.in

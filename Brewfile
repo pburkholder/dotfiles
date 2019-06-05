@@ -36,5 +36,6 @@ cask "powershell"
 cask "docker"
 cask "alfred"
 cask "slack"
+cask "vlc"
 
 cask "intelliscape-caffeine"
