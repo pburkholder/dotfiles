@@ -13,6 +13,8 @@ brew "pyenv-virtualenv"
 brew "pyenv-virtualenvwrapper"
 brew "the_silver_searcher"
 brew "cloudfoundry/tap/cf-cli"
+brew "node"
+
 cask "github"
 cask "vmware-horizon-client"
 
@@ -39,3 +41,4 @@ cask "slack"
 cask "vlc"
 
 cask "intelliscape-caffeine"
+
