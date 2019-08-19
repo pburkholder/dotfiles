@@ -14,9 +14,11 @@ brew "pyenv-virtualenvwrapper"
 brew "the_silver_searcher"
 brew "cloudfoundry/tap/cf-cli"
 brew "node"
+brew "jq"
+brew "httpie"
 
-cask "github"
-cask "vmware-horizon-client"
+# cask "github"
+# cask "vmware-horizon-client"
 
 # my sanity apps
 
@@ -27,8 +29,6 @@ cask "spectacle"   # window manager, free
 cask "iterm2"      
 cask "keepassxc"   # GSA-approved password manager
 cask "visual-studio-code"
-cask "alfred"      # Because, awesome. 
-cask "1password"
 cask "toggl"       # TogglDesktop for time tracking
 
 # MBP apps
@@ -36,9 +36,6 @@ brew "azure-cli"
 
 cask "powershell"
 cask "docker"
-cask "alfred"
 cask "slack"
-cask "vlc"
-
-cask "intelliscape-caffeine"
+#cask "vlc"
 

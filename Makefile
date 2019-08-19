@@ -64,7 +64,8 @@ vscode-extensions:
 	install $< $@
 
 ~/.tmp:
-	install -d $@ -m 0700
+	mkdir $@
+	chmod 0700 $@
 
 ~/.config/Powershell:
 	install -d $@ -m 0700
