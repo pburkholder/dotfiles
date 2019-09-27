@@ -16,6 +16,7 @@ brew "cloudfoundry/tap/cf-cli"
 brew "node"
 brew "jq"
 brew "httpie"
+brew "watch"
 
 # cask "github"
 # cask "vmware-horizon-client"
