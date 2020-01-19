@@ -73,3 +73,4 @@ fi
 
 # https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
