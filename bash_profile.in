@@ -72,5 +72,6 @@ if [ -r /usr/local/opt/nvm/nvm.sh ] ; then
 fi
 
 # https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
-export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+# export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/openjdk/bin:$PATH"

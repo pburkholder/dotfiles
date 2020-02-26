@@ -4,39 +4,48 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 
-# installed by laptop
 brew "git"
-brew "hub"
-brew "libgit2"
-brew "pyenv"
-brew "pyenv-virtualenv"
-brew "pyenv-virtualenvwrapper"
 brew "the_silver_searcher"
-brew "cloudfoundry/tap/cf-cli"
 brew "node"
 brew "jq"
 brew "httpie"
 brew "watch"
-
-# cask "github"
-# cask "vmware-horizon-client"
-
-# my sanity apps
-
 brew "bash-git-prompt"
+brew "awscli"
+brew "azure-cli"
+brew "bats-core"
+brew "cf-cli"
+brew "coreutils"
+brew "multitail"
+brew "ncdu"
+brew "node"
+brew "openjdk"
+brew "pstree"
+brew "pv"
+brew "python"
+brew "python@3.8"
+brew "readline"
+brew "ruby"
+brew "speedtest-cli"
+brew "sslscan"
+
+# productivity apps
 cask "flycut"      # keep paste buffers
 cask "spectacle"   # window manager, free
-# case "sizeup"     # non-free windows manager, use Magnets instead if possible
 cask "iterm2"      
 cask "keepassxc"   # GSA-approved password manager
 cask "visual-studio-code"
-cask "toggl"       # TogglDesktop for time tracking
-
-# MBP apps
-brew "azure-cli"
-
+cask "alfred"
+cask "intelliscape-caffeine"
 cask "powershell"
 cask "docker"
 cask "slack"
-#cask "vlc"
+cask "vlc"
+cask "grandperspective"
+cask "deckset"
 
+# work/life balance
+cask "1password"
+cask "send-to-kindle"
+cask "spotify"
+cask "toggl"

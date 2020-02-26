@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo Add /Application installed apps
-for app in Flycut Spectacle Alfred\ 3;
+for app in Flycut Spectacle Alfred\ 4;
 do
   osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/'$app'.app", hidden:false}'
 done
