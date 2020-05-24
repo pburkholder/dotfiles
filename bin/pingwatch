@@ -1,0 +1,28 @@
+###
+#
+# while true; do  echo -n `date +"[%m-%d %H:%M:%S]"` && netstat -I en0 | head -2 | tail -1 | tee -a netstatout ; sleep 2; done
+
+#  ping 192.168.1.1 --apple-time | tee -a pingout
+#  speedtest-cli --single --server 16770 --simple
+# Ping: 24.113 ms
+# Download: 9.89 Mbit/s
+# Upload: 1.02 Mbit/s
+
+echo Starting job 1
+while true; do (echo -n `date +"[%m-%d %H:%M:%S]"` && timeout 60s speedtest-cli --single --server 16770; echo $?;  echo -- fini --) >> /tmp/speedtest; sleep 120; done &
+
+sleep 2
+
+echo Starting job 2
+while true; do  (echo -n `date +"[%m-%d %H:%M:%S]"` && netstat -I en0 | head -2 | tail -1 ) >> /tmp/netstatout ; sleep 5; done &
+
+sleep 2
+
+
+echo Starting job 3
+myip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+ping $myip -i 5  --apple-time >> /tmp/pingout &
+
+jobs
+
+multitail -i /tmp/speedtest -i /tmp/netstatout -i /tmp/pingout
