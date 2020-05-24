@@ -23,9 +23,6 @@ AppleKeyboardUIMode:
 brewnote:
 	@echo "run 'brew bundle install Brewfile' to install"
 
-~/bin/git-seekret:
-	curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
-
 .PHONY: vscode-extensions install-vscode
 
 vscode: install-vscode $(VSCODE_SETTTINGS) vscode-extensions

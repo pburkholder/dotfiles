@@ -27,10 +27,3 @@
     untracked = red
 [diff]
     noprefix = true
-[core]
-	hooksPath = /Users/peterburkholder/.git-support/hooks
-[gitseekret]
-	version = 1
-	rulespath = /Users/peterburkholder/.git-support/seekret-rules
-	rulesenabled = aws.secret_access_key,aws.access_key_id,aws.account_id,mandrill.username,mandrill.password,mandrill.api_key,newrelic.license_key,slack.api_token
-	exceptionsfile = ""

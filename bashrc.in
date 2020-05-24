@@ -146,6 +146,9 @@ alias tf='terraform'
 alias sandbox='cf target -o sandbox-gsa -s peter.burkholder'
 alias sbox=sandbox
 
+[ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
+  source /usr/local/etc/bash_completion.d/gmt_completion.bash
+
 # put at end so not clobbered
 if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
   echo "Adding gitprompt"
