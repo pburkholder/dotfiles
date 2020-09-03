@@ -43,6 +43,7 @@ cask "docker"
 cask "vlc"
 cask "grandperspective"
 cask "deckset"
+cask "zoomus"
 
 # work/life balance
 cask "1password"

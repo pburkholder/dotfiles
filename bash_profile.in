@@ -40,10 +40,10 @@ export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 # brew go
 if [ -d $HOME/go ] ; then
   export GOPATH=$HOME/go
-  export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
   # temporary for compliance-masonry
-  CM=$GOPATH/src/github.com/opencontrol/compliance-masonry
-  [ -x $CM/compliance-masonry ] && export PATH=$CM:$PATH
+#  CM=$GOPATH/src/github.com/opencontrol/compliance-masonry
+#  [ -x $CM/compliance-masonry ] && export PATH=$CM:$PATH
 fi
 
 

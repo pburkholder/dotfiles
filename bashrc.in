@@ -21,6 +21,9 @@ export EDITOR=/usr/bin/vim
 [ -f $(brew --prefix)/etc/bash_completion ] &&
   source  $(brew --prefix)/etc/bash_completion
 
+[ -x /usr/local/bin/aws_completer ] &&
+  complete -C '/usr/local/bin/aws_completer' aws
+
 for complete in \
     git-completion.bash \
     git-prompt.sh \
