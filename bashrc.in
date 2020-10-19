@@ -24,9 +24,9 @@ export EDITOR=/usr/bin/vim
 [ -x /usr/local/bin/aws_completer ] &&
   complete -C '/usr/local/bin/aws_completer' aws
 
+#    git-prompt.sh \
 for complete in \
     git-completion.bash \
-    git-prompt.sh \
     az \
     brew \
     cf-cli \
@@ -152,16 +152,20 @@ alias sbox=sandbox
 [ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
   source /usr/local/etc/bash_completion.d/gmt_completion.bash
 
-# put at end so not clobbered
-if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
-  echo "Adding gitprompt"
-  GIT_PROMPT_THEME=Default
-  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
-else
-  echo "No gitprompt. Try 'brew install bash-git-prompt'"
-fi
+## put at end so not clobbered
+#if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+#  echo "Adding gitprompt"
+#  GIT_PROMPT_THEME=Default
+#  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+#else
+#  echo "No gitprompt. Try 'brew install bash-git-prompt'"
+#fi
 
 # Not sure if this is needed
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
+CLOUD_GOV_RC=$HOME/Projects/pburkholder/dotfiles/cloudgovrc
+[ -r $CLOUD_GOV_RC ] && . $CLOUD_GOV_RC
+
+which starship && eval "$(starship init bash)"
