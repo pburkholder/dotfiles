@@ -1,6 +1,9 @@
 export scripts_dir="$HOME/Projects/cloud-gov/cg-scripts"
+
 alias jump-prod="pushd $scripts_dir; ./jumpbox cloud.gov production; popd"
-alias jump-staging="pushd $scripts_dir; ./jumpbox cloud.gov staging; popd"
 alias jump-dev="pushd $scripts_dir; ./jumpbox cloud.gov development; popd"
-alias jump-tooling="pushd $scripts_dir; ./jumpbox cloud.gov tooling; popd"
-alias jump-master="pushd $scripts_dir; ./jumpbox cloud.gov master; popd"
+
+for e in staging tooling master westb westc easta eastb master-west master-east tooling-west tooling-east 
+do 
+  alias jump-$e="pushd $scripts_dir; ./jumpbox cloud.gov $e; popd"
+done
