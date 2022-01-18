@@ -7,3 +7,39 @@ for e in staging tooling master westb westc easta eastb master-west master-east 
 do 
   alias jump-$e="pushd $scripts_dir; ./jumpbox cloud.gov $e; popd"
 done
+
+function cf_target {
+  local cf_config
+  local cf_api
+  local cf_org
+  local cf_space
+
+  cf_config=${CF_HOME:=~/.cf}/config.json
+  cf_api=$(cat ${cf_config} | jq -r .Target| grep -v null | sed 's_https://__')
+
+  cf_org=$(cat ${cf_config} | jq -r .OrganizationFields.Name)
+  cf_space=$(cat ${cf_config} | jq -r .SpaceFields.Name)
+
+  echo "$cf_api/${cf_org}/${cf_space}"
+
+}
+
+function cf_go {
+  target=$1
+  export CF_HOME=$HOME/.cfall/$target
+  [ -d $HOME/.cfall/$target ] || mkdir -p $HOME/.cfall/$target
+  shortenv=$(echo $target | cut -c1,5)
+
+  case $target in 
+    easta|eastb|westb|westc)
+        export CF_HOME="$HOME/.cfall/$target"
+        [ -d $CF_HOME ] || mkdir -p $CF_HOME 
+        chmod 700 $CF_HOME
+        cf target || cf login -a api.fr.$shortenv.cloud.gov --sso
+        ;;
+    *)
+        echo "Whoop, expect easta, etc."
+        exit 1
+        ;;
+    esac
+}
