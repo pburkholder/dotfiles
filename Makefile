@@ -28,7 +28,7 @@ brewnote:
 vscode: install-vscode $(VSCODE_SETTTINGS) vscode-extensions
 
 install-vscode:
-	brew cask install visual-studio-code
+	[ -x /usr/local/bin/code ] || brew install visual-studio-code
 	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 # need to quote as '$@' because of spaces in filename
