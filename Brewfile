@@ -30,6 +30,7 @@ brew "ruby"
 brew "speedtest-cli"
 brew "sslscan"
 brew "starship"
+brew "switchaudio-osx"
 
 # productivity apps
 cask "flycut"      # keep paste buffers
