@@ -1,6 +1,7 @@
 [user]
 	name = Peter Burkholder
 	email = peter.burkholder@gsa.gov
+	signingkey = F5D45DFE4F88FCC6
 
 [alias]
    co = checkout
@@ -28,3 +29,13 @@
     untracked = red
 [diff]
     noprefix = true
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[commit]
+	gpgSign = true
+[hooks]
+	gitleaks = true
+[core]
+	hooksPath = /Users/peterdburkholder/.git-support/hooks
