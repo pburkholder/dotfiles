@@ -165,6 +165,8 @@ alias sbox=sandbox
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
+# One time run:
+# fly --target cloud.gov login --concourse-url https://ci.fr.cloud.gov
 CLOUD_GOV_RC=$HOME/Projects/pburkholder/dotfiles/cloudgovrc
 [ -r $CLOUD_GOV_RC ] && . $CLOUD_GOV_RC
 
@@ -172,3 +174,4 @@ which starship && eval "$(starship init bash)"
 
 export GPG_TTY=$(tty)
 alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
