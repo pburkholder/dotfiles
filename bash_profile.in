@@ -89,4 +89,10 @@ export NVM_DIR="$HOME/.nvm"
 alias qc35='SwitchAudioSource -s "Bose QuietComfort 35"'
 alias soundlink='SwitchAudioSource -s "Bose SoundLink Wireless Mobile speaker"'
 
+spaces2underscore() {
+  for i in *\ *; do
+    new=$(echo $i | sed -e 's/ /_/g')
+    mv "$i" $new
+  done
+}
 
