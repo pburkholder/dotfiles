@@ -1,0 +1,18 @@
+#!/bin/sh 
+
+service="/Library/LaunchDaemons/com.zscaler.service.plist"
+tunnel="/Library/LaunchDaemons/com.zscaler.tunnel.plist"
+case $1 in
+  up)
+    sudo launchctl load $service $tunnel
+    ;;
+  down)
+    sudo launchctl unload $service $tunnel
+#    sudo sh -c "echo launchctl load /Library/LaunchDaemons/com.zscaler.tunnel.plist /Library/LaunchDaemons/com.zscaler.service.plist | at now + 20 minutes"
+    ;;
+  *)
+    echo "$0 up|down"
+    echo "# sets zscaler up or down"
+    exit 1
+    ;;
+esac

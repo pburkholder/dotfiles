@@ -1,6 +1,5 @@
 # .PHONY:	all
 
-BIN := ~/bin/ ~/bin/aws_switch ~/bin/aws_emit
 VSCODE_SETTTINGS := $(HOME)/Library/Application\ Support/Code/User/settings.json
 ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
 ALL += ~/.config/Powershell/Microsoft.PowerShell_profile.ps1
@@ -70,18 +69,9 @@ vscode-extensions:
 ~/.config/Powershell/Microsoft.PowerShell_profile.ps1: profile.ps1 ~/.config/Powershell
 	install $< $@
 
-~/bin:
-	install -d $@ -m 0700
-
-~/bin/aws_switch: bin/aws_switch
-	install -m 0755 $<  $@
-
-~/bin/aws_emit: bin/aws_emit
-	install -m 0755 $<  $@
-
-~/bin/vmrun: 
-	ln -fs "/Applications/VMware Fusion.app/Contents/Library/vmrun" $@
-
+.PHONY: bin
+bin: 
+	ginstall -t "$(HOME)/bin" -D ./bin/*
 
 #DOTPATH=${HOME}/Projects/dotfiles
 ## Symlinks didn't work out, can't recall why:

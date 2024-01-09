@@ -1,0 +1,15 @@
+#!/bin/sh
+
+
+T=$1
+
+case $T in
+  5|10|15|20) 
+     sudo pkill shutdown
+     sudo /sbin/shutdown -s +$T "Deferred shutdown in $T minutes";;
+  *) 
+    echo "Usage: $0 5|10|15|20"
+    exit 1
+    ;;
+esac
+

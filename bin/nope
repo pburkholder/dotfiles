@@ -1,0 +1,26 @@
+#!/bin/bash -eu -o pipefail
+
+chrome_installed=$(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version | awk '{print $NF}')
+echo "Chrome installed: $chrome_installed"
+
+chrome_available=$(curl -s 'https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Mac&num=1' | jq -r '.[0].version')
+echo  "Chrome available: $chrome_available"
+
+firefox_installed=$(/Applications/Firefox.app/Contents/MacOS/firefox --version | awk '{print $NF}')
+echo "Firefox installed: $firefox_installed"
+
+firefox_available=$(curl -sfI 'https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US' | perl -n -e 'm/releases\/([\d\.]+)\/mac/ && print $1')
+echo "Firefox available: $firefox_available"
+
+if [ "$chrome_installed" = "$chrome_available" ] && [ "$firefox_installed" = "$firefox_available" ] ; then
+  read -p "Browsers are up-to-date; Do you want to kill update? (Y/N): " answer
+  answer=$(echo "$answer" | cut -c 1 | tr '[:lower:]' '[:upper:]')
+  if [ "$answer" = "Y" ]; then
+    sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
+  else
+    echo "Exiting..."
+  fi
+
+else
+  echo "Browsers are not up-to-date"
+fi
