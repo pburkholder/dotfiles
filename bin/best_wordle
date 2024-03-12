@@ -1,0 +1,34 @@
+#!/bin/bash
+
+curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt | 
+  egrep '[wtphbcfmrsaei]{5}' |    # get the words which are most with the endings
+  perl -ne 'print if m/^(?!.*(.).*\1)\w+$/g' | # no repeated letters
+  perl -ne 'print if /^[^[:^alpha:]aeiouy]*[aeiouy][^[:^alpha:]aeiouy]*$/gm' | # no repeat vowel
+  perl -ne 'my $d = () = ($_ =~ /[bhptw]/g); print $d, " ", $_' | sort -n # count ideal letter bphtw
+
+exit 0
+
+
+Notes
+
+wordle | cut -c 2-5 | sort  | uniq -c | sort | tail -8
+   6 aste
+   6 atty
+   6 aunt
+   6 illy
+   7 atch
+   7 ower
+   8 ound
+   9 ight
+
+ wordle | egrep ‘(ight|ound|ower|atch|illy|aunt|atty|aste)’ | cut -c 1 | uniq -c | sort | tail -10
+   4 c
+   4 f
+   4 m
+   4 r
+   4 s
+   5 b
+   5 h
+   5 p
+   5 t
+   5 w (edited)   

@@ -1,0 +1,14 @@
+#!/bin/bash
+# Crude Whois against ARIN over HTTPS
+
+set -euo pipefail
+
+# Ha ha... as if this will work with any other web site?
+WHOIS_SERVICE='https://www.iana.org/whois?q='
+
+if [[ $# != 1 ]] ; then
+  echo 'USAGE: $0 THING_YOU_WANT_TO_GET_WHOIS_INFO_FOR'
+  exit 0
+fi
+
+curl -s "${WHOIS_SERVICE}$1" | awk '/<pre>% IANA WHOIS server/{flag=1; next} /<\/pre>/{flag=0} flag'

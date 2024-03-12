@@ -175,3 +175,7 @@ which starship && eval "$(starship init bash)"
 export GPG_TTY=$(tty)
 alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+function noup() {
+  sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
+}
