@@ -1,0 +1,154 @@
+# Peter's ZSHRC comprising
+# -- bashrc.in ---
+# User specific aliases and functions
+export PS1='[\u@\h \W]$ '
+export EDITOR=/usr/bin/vim
+export LESS='-X'
+export BREW='/opt/homebrew/bin/brew'
+
+## COMPLETIONS - need updating for ZSH 2024-05-14
+
+[ -f $($BREW --prefix)/etc/bash_completion ] &&
+  source  $($BREW --prefix)/etc/bash_completion
+
+[ -x /usr/local/bin/aws_completer ] &&
+  complete -C '/usr/local/bin/aws_completer' aws
+
+for complete in \
+    git-completion.bash \
+    az \
+    brew \
+    cf-cli \
+    hub.bash_completion.sh 
+do
+  [ -f $($BREW --prefix)/etc/bash_completion.d/$complete ] && \
+    source $($BREW --prefix)/etc/bash_completion.d/$complete
+done
+
+[ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
+  source /usr/local/etc/bash_completion.d/gmt_completion.bash
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+set -o vi
+
+## Age-old ALIASES:
+alias mroe='more'
+alias m='more'
+alias psg='/bin/ps auxgw | egrep -i '
+alias tvm='tail /var/log/messages'
+alias ls='/bin/ls -F'
+alias ll='/bin/ls -l'
+alias be='sudo /bin/su - $@'
+alias g='git'
+
+# FUNCTIONS:
+lh () { /bin/ls -lt $@ | /usr/bin/head; }          
+p() { pushd ${1}; }
+P() { popd ${1}; }
+export ENSCRIPT="--margins=::36:36"
+
+##
+## Highlighting
+##
+alias dark='pbpaste | highlight --syntax=rb -O rtf --style nightshimmer | pbcopy'
+gceweb(){
+  gcloud compute instances list | grep web | perl -ane 'print "$F[0] $F[4]\n"'
+}
+
+
+##
+## Everything below here is quite possibly obsolete:
+##
+
+# Set Xterm title:  http://tldp.org/HOWTO/Xterm-Title-4.html#ss4.3
+case "$TERM" in
+    screen)
+        PROMPT_COMMAND='echo -ne "\033k$HOSTNAME\033\\"'
+        ;;
+    xterm)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        ;;
+    *)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        ;;
+esac
+
+# FUNCTIONS:
+hname () {
+    case `uname -o` in
+        Cygwin) hostname;;
+        *)      hostname -s;;
+    esac
+}
+
+# sudo pip install virtualenvwrapper, then:
+VIRTUALENV_SH=/usr/local/bin/virtualenvwrapper.sh
+if [ -x $VIRTUALENV_SH ]; then
+  [ -d $HOME/.virtualenvs ] || mkdir $HOME/.virtualenvs
+  export WORKON_HOME=$HOME/.virtualenvs
+  source $VIRTUALENV_SH
+fi
+
+alias tf='terraform'
+alias sandbox='cf target -o sandbox-gsa -s peter.burkholder'
+alias sbox=sandbox
+
+
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# One time run:
+# fly --target cloud.gov login --concourse-url https://ci.fr.cloud.gov
+CLOUD_GOV_RC=$HOME/Projects/pburkholder/dotfiles/cloudgovrc
+[ -r $CLOUD_GOV_RC ] && . $CLOUD_GOV_RC
+
+which starship && eval "$(starship init zsh)"
+
+export GPG_TTY=$(tty)
+
+alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+export PATH=$PATH:$HOME/bin
+export JAVA_HOME="$(/usr/libexec/java_home)"
+
+# brew go
+if [ -d $HOME/go ] ; then
+  export GOPATH=$HOME/go
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+fi
+
+# Source my aws credentials
+# [ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
+
+if [ -r ($BREW --prefix)/opt/nvm/nvm.sh ] ; then 
+    mkdir -p ~/.nvm
+    export NVM_DIR="$HOME/.nvm"
+    . "/usr/local/opt/nvm/nvm.sh"
+fi
+
+#export PATH="/usr/local/opt/ruby/bin:$PATH"
+#export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+# cloud.gov script
+export PATH="$HOME/Projects/cloud-gov/cg-scripts:$PATH"
+
+
+# Switch audio with `brew install switchaudio-osx'
+alias qc35='SwitchAudioSource -s "Bose QuietComfort 35"'
+alias soundlink='SwitchAudioSource -s "Bose SoundLink Wireless Mobile speaker"'
+
+function noup() {
+  sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
+}
+
+
+function spaces2underscore() {
+  for i in *\ *; do
+    new=$(echo $i | sed -e 's/ /_/g')
+    mv "$i" $new
+  done
+}
