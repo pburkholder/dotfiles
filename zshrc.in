@@ -1,5 +1,4 @@
-# Peter's ZSHRC comprising
-# -- bashrc.in ---
+# Peter's ZSHRC 
 # User specific aliases and functions
 export PS1='[\u@\h \W]$ '
 export EDITOR=/usr/bin/vim
@@ -7,26 +6,27 @@ export LESS='-X'
 export BREW='/opt/homebrew/bin/brew'
 
 ## COMPLETIONS - need updating for ZSH 2024-05-14
+function completely() {
+  [ -f $($BREW --prefix)/etc/bash_completion ] &&
+    source  $($BREW --prefix)/etc/bash_completion
 
-[ -f $($BREW --prefix)/etc/bash_completion ] &&
-  source  $($BREW --prefix)/etc/bash_completion
+  [ -x /usr/local/bin/aws_completer ] &&
+    complete -C '/usr/local/bin/aws_completer' aws
 
-[ -x /usr/local/bin/aws_completer ] &&
-  complete -C '/usr/local/bin/aws_completer' aws
+  for complete in \
+      git-completion.bash \
+      az \
+      brew \
+      cf-cli \
+      hub.bash_completion.sh 
+  do
+    [ -f $($BREW --prefix)/etc/bash_completion.d/$complete ] && \
+      source $($BREW --prefix)/etc/bash_completion.d/$complete
+  done
 
-for complete in \
-    git-completion.bash \
-    az \
-    brew \
-    cf-cli \
-    hub.bash_completion.sh 
-do
-  [ -f $($BREW --prefix)/etc/bash_completion.d/$complete ] && \
-    source $($BREW --prefix)/etc/bash_completion.d/$complete
-done
-
-[ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
-  source /usr/local/etc/bash_completion.d/gmt_completion.bash
+  [ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
+      source /usr/local/etc/bash_completion.d/gmt_completion.bash
+}
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -44,6 +44,8 @@ alias ls='/bin/ls -F'
 alias ll='/bin/ls -l'
 alias be='sudo /bin/su - $@'
 alias g='git'
+
+set -x
 
 # FUNCTIONS:
 lh () { /bin/ls -lt $@ | /usr/bin/head; }          
@@ -105,46 +107,48 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 CLOUD_GOV_RC=$HOME/Projects/pburkholder/dotfiles/cloudgovrc
 [ -r $CLOUD_GOV_RC ] && . $CLOUD_GOV_RC
 
-which starship && eval "$(starship init zsh)"
+function foo() {
 
-export GPG_TTY=$(tty)
+  which starship && eval "$(starship init zsh)"
 
-alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+  export GPG_TTY=$(tty)
 
-export PATH=$PATH:$HOME/bin
-export JAVA_HOME="$(/usr/libexec/java_home)"
+  alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
+  alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
-# brew go
-if [ -d $HOME/go ] ; then
-  export GOPATH=$HOME/go
-  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-fi
+  export PATH=$PATH:$HOME/bin
+  #export JAVA_HOME="$(/usr/libexec/java_home)"
 
-# Source my aws credentials
-# [ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
+  # brew go
+  if [ -d $HOME/go ] ; then
+    export GOPATH=$HOME/go
+    export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+  fi
 
-if [ -r ($BREW --prefix)/opt/nvm/nvm.sh ] ; then 
-    mkdir -p ~/.nvm
-    export NVM_DIR="$HOME/.nvm"
-    . "/usr/local/opt/nvm/nvm.sh"
-fi
+  # Source my aws credentials
+  # [ -x ~/bin/aws_switch ] && eval $(~/bin/aws_switch pburkholder)
 
-#export PATH="/usr/local/opt/ruby/bin:$PATH"
-#export PATH="/usr/local/opt/openjdk/bin:$PATH"
+  if [ -r $($BREW --prefix)/opt/nvm/nvm.sh ] ; then 
+      mkdir -p ~/.nvm
+      export NVM_DIR="$HOME/.nvm"
+      . "/usr/local/opt/nvm/nvm.sh"
+  fi
 
-# cloud.gov script
-export PATH="$HOME/Projects/cloud-gov/cg-scripts:$PATH"
+  #export PATH="/usr/local/opt/ruby/bin:$PATH"
+  #export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+  # cloud.gov script
+  export PATH="$HOME/Projects/cloud-gov/cg-scripts:$PATH"
 
 
-# Switch audio with `brew install switchaudio-osx'
-alias qc35='SwitchAudioSource -s "Bose QuietComfort 35"'
-alias soundlink='SwitchAudioSource -s "Bose SoundLink Wireless Mobile speaker"'
+  # Switch audio with `brew install switchaudio-osx'
+  alias qc35='SwitchAudioSource -s "Bose QuietComfort 35"'
+  alias soundlink='SwitchAudioSource -s "Bose SoundLink Wireless Mobile speaker"'
+}
 
 function noup() {
   sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
 }
-
 
 function spaces2underscore() {
   for i in *\ *; do
@@ -152,3 +156,5 @@ function spaces2underscore() {
     mv "$i" $new
   done
 }
+
+set +x

@@ -7,34 +7,40 @@
 	. /etc/bashrc
 #fi
 
+
+
 # How to undefine a function:
 # $ unset -f functionName
+
+export PATH=$PATH:/opt/homebrew/bin
+export BREW=/opt/homebrew/bin/brew
 
 # User specific aliases and functions
 export PS1='[\u@\h \W]$ '
 export EDITOR=/usr/bin/vim
-# export LESS='-X'
-# export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:$HOME/bin
-# export LANG=C
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
-[ -f $(brew --prefix)/etc/bash_completion ] &&
-  source  $(brew --prefix)/etc/bash_completion
+function completely() {
+  [ -f $(--prefix)/etc/bash_completion ] &&
+    source  $($BREW --prefix)/etc/bash_completion
 
-[ -x /usr/local/bin/aws_completer ] &&
-  complete -C '/usr/local/bin/aws_completer' aws
+  [ -x /usr/local/bin/aws_completer ] &&
+    complete -C '/usr/local/bin/aws_completer' aws
 
-#    git-prompt.sh \
-for complete in \
-    git-completion.bash \
-    az \
-    brew \
-    cf-cli \
-    hub.bash_completion.sh 
-do
-  [ -f $(brew --prefix)/etc/bash_completion.d/$complete ] && \
-    source $(brew --prefix)/etc/bash_completion.d/$complete
-done
+  #    git-prompt.sh \
+  for complete in \
+      git-completion.bash \
+      az \
+      brew \
+      cf-cli \
+      hub.bash_completion.sh 
+  do
+    [ -f $($BREW --prefix)/etc/bash_completion.d/$complete ] && \
+      source $($BREW --prefix)/etc/bash_completion.d/$complete
+  done
+  
+  [ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
+    source /usr/local/etc/bash_completion.d/gmt_completion.bash
+}
 
 set -o vi
 
@@ -149,14 +155,12 @@ alias tf='terraform'
 alias sandbox='cf target -o sandbox-gsa -s peter.burkholder'
 alias sbox=sandbox
 
-[ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
-  source /usr/local/etc/bash_completion.d/gmt_completion.bash
 
 ## put at end so not clobbered
-#if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+#if [ -f "$($BREW --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
 #  echo "Adding gitprompt"
 #  GIT_PROMPT_THEME=Default
-#  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+#  source "$($BREW --prefix bash-git-prompt)/share/gitprompt.sh"
 #else
 #  echo "No gitprompt. Try 'brew install bash-git-prompt'"
 #fi
@@ -179,3 +183,6 @@ alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 function noup() {
   sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
 }
+
+
+cd 
