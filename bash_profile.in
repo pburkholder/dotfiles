@@ -29,4 +29,9 @@ spaces2underscore() {
   done
 }
 
+ssh-piv {
+  export OSXSC_LIB=/usr/lib/ssh-keychain.dylib
+  ssh-add -s $OSXSC_LIB
+}
+
 cd
