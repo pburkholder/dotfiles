@@ -3,16 +3,16 @@
 # User specific aliases and functions
 
 # Source global definitions
-#if [ -f /etc/bashrc ]; then
+if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
-#fi
+fi
 
 
 
 # How to undefine a function:
 # $ unset -f functionName
 
-export PATH=$PATH:/opt/homebrew/bin
+export PATH=/opt/homebrew/bin:$PATH
 export BREW=/opt/homebrew/bin/brew
 
 # User specific aliases and functions
@@ -20,27 +20,32 @@ export PS1='[\u@\h \W]$ '
 export EDITOR=/usr/bin/vim
 
 function completely() {
-  [ -f $(--prefix)/etc/bash_completion ] &&
+  [ -f $($BREW --prefix)/etc/bash_completion ] &&
     source  $($BREW --prefix)/etc/bash_completion
 
-  [ -x /usr/local/bin/aws_completer ] &&
-    complete -C '/usr/local/bin/aws_completer' aws
+  [ -x $($BREW --prefix)/bin/aws_completer ] &&
+    complete -C $($BREW --prefix)/bin/aws_completer aws
 
-  #    git-prompt.sh \
   for complete in \
-      git-completion.bash \
+      ag.bashcomp.sh \
+      aws-vault.bash \
       az \
       brew \
       cf-cli \
-      hub.bash_completion.sh 
+      gh \
+      git-completion.bash \
+      git-prompt.sh \
+      gmt_completion.bash \
+      hub.bash_completion.sh \
+      pandoc \
+      ;
   do
     [ -f $($BREW --prefix)/etc/bash_completion.d/$complete ] && \
       source $($BREW --prefix)/etc/bash_completion.d/$complete
   done
-  
-  [ -x /usr/local/etc/bash_completion.d/gmt_completion.bash ] &&
-    source /usr/local/etc/bash_completion.d/gmt_completion.bash
 }
+
+completely
 
 set -o vi
 
@@ -184,5 +189,3 @@ function noup() {
   sudo kill $(pstree -s gov.gsa.software_update | tail -3 | awk 'BEGIN {ORS=" "} {print $2}')
 }
 
-
-cd 
