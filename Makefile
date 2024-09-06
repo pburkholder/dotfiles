@@ -1,7 +1,7 @@
 # .PHONY:	all
 
 VSCODE_SETTTINGS := $(HOME)/Library/Application\ Support/Code/User/settings.json
-ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh $(BIN) brewnote
+ALL := ~/.ackrc ~/.bash_profile ~/.bashrc ~/.gitconfig ~/.stove ~/.tmux.conf ~/.vimrc ~/.enscriptrc ~/.git-prompt.sh ~/.cloudgovrc $(BIN) brewnote
 ALL += ~/.config/Powershell/Microsoft.PowerShell_profile.ps1
 All += defaults
 
@@ -60,6 +60,10 @@ vscode-extensions:
 	install $< $@
 
 ~/.tmp:
+	mkdir $@
+	chmod 0700 $@
+
+~/.nvm:
 	mkdir $@
 	chmod 0700 $@
 

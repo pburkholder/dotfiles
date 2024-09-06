@@ -24,22 +24,18 @@ function cf_target {
 
 }
 
-function cf_go {
+function cf_go() {
   target=$1
-  export CF_HOME=$HOME/.cfall/$target
-  [ -d $HOME/.cfall/$target ] || mkdir -p $HOME/.cfall/$target
-  shortenv=$(echo $target | cut -c1,5)
-
   case $target in 
-    easta|eastb|westb|westc)
+    fr|fr-stage)
         export CF_HOME="$HOME/.cfall/$target"
         [ -d $CF_HOME ] || mkdir -p $CF_HOME 
         chmod 700 $CF_HOME
-        cf target || cf login -a api.fr.$shortenv.cloud.gov --sso
+        cf target || cf login -a api.$target.cloud.gov --sso
         ;;
     *)
-        echo "Whoop, expect easta, etc."
-        exit 1
+        echo Whoops, expected 'cf_go (fr|fr-stage)'
+        return 1
         ;;
     esac
 }

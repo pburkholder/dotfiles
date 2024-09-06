@@ -1,8 +1,6 @@
 # eval "$(chef shell-init bash)"
 # export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
 export PATH=$PATH:$HOME/bin
-
-
 export JAVA_HOME="$(/usr/libexec/java_home)"
 
 #if [ (id gsa_x > /dev/null) ]; then 
@@ -14,6 +12,13 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 
 [ -x $HOME/.bashrc ] && \
   source $HOME/.bashrc
+
+# Development env stuff
+
+if [ -d ~/.nvm ];  then
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+fi
 
 # cloud.gov script
 export PATH="$HOME/Projects/cloud-gov/cg-scripts:$PATH"
