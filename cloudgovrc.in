@@ -30,6 +30,8 @@ function cf_go_fail() {
   return -1
 }
 
+CF_GO_HOME=$HOME/.cf_go
+
 function cf_go_create() {
   cf_env=$1
   echo "Creating cf_go env $1 with current target"
@@ -52,13 +54,22 @@ function cf_go() {
         case $opt in
             c) echo "-c CREATE with value $OPTARG" 
                cf_go_create $OPTARG
+               return
                ;;
-            d) echo "-d DELETE with value $OPTARG" ;;
-            l) echo "-l LIST" ;;
+            d) echo "-d DELETE with value $OPTARG"
+               /bin/rm -rf $CF_GO_HOME/$OPTARG
+               return
+               ;;
+            l) printf "$O envs: "
+               /bin/ls $CF_GO_HOME
+               return
+               ;;
             ?) echo "USAGE";;
         esac
     done
     shift $((OPTIND-1))
+    echo "cf switch $1"
+    export CF_HOME=$CF_GO_HOME/$1
 }
 
 function cf_gox() {
