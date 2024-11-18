@@ -14,17 +14,54 @@ function cf_target {
   local cf_org
   local cf_space
 
-  cf_config=${CF_HOME:=~/.cf}/config.json
-  cf_api=$(cat ${cf_config} | jq -r .Target| grep -v null | sed 's_https://__')
+  [ -z "$CF_HOME" ] && 
+    cf_config=${HOME}/.cf/config.json ||
+    cf_config="${CF_HOME}/.cf/config.json" 
 
+  cf_api=$(cat ${cf_config} | jq -r .Target| grep -v null | sed 's_https://__')
   cf_org=$(cat ${cf_config} | jq -r .OrganizationFields.Name)
   cf_space=$(cat ${cf_config} | jq -r .SpaceFields.Name)
 
-  echo "$cf_api/${cf_org}/${cf_space}"
+  printf "\e[36m${cf_org}/${cf_space}\e[0m"
+}
 
+function cf_go_fail() {
+  echo $@
+  return -1
+}
+
+function cf_go_create() {
+  cf_env=$1
+  echo "Creating cf_go env $1 with current target"
+  cf_go_env="$HOME/.cf_go/$cf_env"
+  [ -d $cf_go_env ] && cf_go_fail "Env directory, $cf_go_env, already exists"
+  mkdir -p $cf_go_env
+  chmod 700 $cf_go_env
+  export CF_HOME=$cf_go_env/
+  cf api $CGAPI
+  cf login --sso
 }
 
 function cf_go() {
+    # -c env -- create new env with current target
+    # -l -- list envs
+    # -d env -- delete env
+    CGAPI=https://api.fr.cloud.gov
+    local OPTIND opt usage
+    while getopts "c:d:l" opt; do
+        case $opt in
+            c) echo "-c CREATE with value $OPTARG" 
+               cf_go_create $OPTARG
+               ;;
+            d) echo "-d DELETE with value $OPTARG" ;;
+            l) echo "-l LIST" ;;
+            ?) echo "USAGE";;
+        esac
+    done
+    shift $((OPTIND-1))
+}
+
+function cf_gox() {
   target=$1
   case $target in 
     fr|fr-stage)
@@ -39,3 +76,5 @@ function cf_go() {
         ;;
     esac
 }
+
+starship_precmd_user_func="cf_target"
