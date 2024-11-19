@@ -13,16 +13,20 @@ function cf_target {
   local cf_api
   local cf_org
   local cf_space
-
-  [ -z "$CF_HOME" ] && 
-    cf_config=${HOME}/.cf/config.json ||
-    cf_config="${CF_HOME}/.cf/config.json" 
+  local cf_home
+  cf_home="default"
+  if [ -z "$CF_HOME" ]; then
+    cf_config=${HOME}/.cf/config.json
+  else
+    cf_config="${CF_HOME}/.cf/config.json"
+    cf_home="$(basename $CF_HOME)"
+  fi
 
   cf_api=$(cat ${cf_config} | jq -r .Target| grep -v null | sed 's_https://__')
   cf_org=$(cat ${cf_config} | jq -r .OrganizationFields.Name)
   cf_space=$(cat ${cf_config} | jq -r .SpaceFields.Name)
 
-  printf "\e[36m${cf_org}/${cf_space}\e[0m"
+  printf "\e[36m${cf_org}/${cf_space} (${cf_home})\e[0m"
 }
 
 function cf_go_fail() {
@@ -31,6 +35,7 @@ function cf_go_fail() {
 }
 
 CF_GO_HOME=$HOME/.cf_go
+CGAPI=https://api.fr.cloud.gov
 
 function cf_go_create() {
   cf_env=$1
@@ -45,10 +50,6 @@ function cf_go_create() {
 }
 
 function cf_go() {
-    # -c env -- create new env with current target
-    # -l -- list envs
-    # -d env -- delete env
-    CGAPI=https://api.fr.cloud.gov
     local OPTIND opt usage
     while getopts "c:d:l" opt; do
         case $opt in
@@ -60,11 +61,17 @@ function cf_go() {
                /bin/rm -rf $CF_GO_HOME/$OPTARG
                return
                ;;
-            l) printf "$O envs: "
+            l) printf "$O envs:  "
                /bin/ls $CF_GO_HOME
                return
                ;;
-            ?) echo "USAGE";;
+            ?) echo "USAGE: $0 [-d|-c env] (-l) env"
+               echo "  env # Switch to exist env"
+               echo "  -c env # Create env"
+               echo "  -d env # Delete env"
+               echo "  -l # List envs"
+               return
+               ;;
         esac
     done
     shift $((OPTIND-1))
