@@ -13,18 +13,83 @@ function cf_target {
   local cf_api
   local cf_org
   local cf_space
+  local cf_home
+  cf_home="default"
+  if [ -z "$CF_HOME" ]; then
+    cf_config=${HOME}/.cf/config.json
+  else
+    cf_config="${CF_HOME}/.cf/config.json"
+    cf_home="$(basename $CF_HOME)"
+  fi
 
-  cf_config=${CF_HOME:=~/.cf}/config.json
   cf_api=$(cat ${cf_config} | jq -r .Target| grep -v null | sed 's_https://__')
-
   cf_org=$(cat ${cf_config} | jq -r .OrganizationFields.Name)
   cf_space=$(cat ${cf_config} | jq -r .SpaceFields.Name)
 
-  echo "$cf_api/${cf_org}/${cf_space}"
+  printf "\e[36m${cf_org}/${cf_space} (${cf_home})\e[0m"
+}
 
+function cf_go_fail() {
+  echo $@
+  return -1
+}
+
+CF_GO_HOME=$HOME/.cf_go
+CGAPI=https://api.fr.cloud.gov
+
+function cf_go_create() {
+  local cf_env
+  local cf_go_env
+  cf_env=$1
+  echo "Creating cf_go env $1 with current target"
+  cf_go_env="$HOME/.cf_go/$cf_env"
+  [ -d $cf_go_env ] && cf_go_fail "Env directory, $cf_go_env, already exists"
+  mkdir -p $cf_go_env
+  chmod 700 $cf_go_env
+  export CF_HOME=$cf_go_env/
+  cf api $CGAPI
+  cf login --sso
 }
 
 function cf_go() {
+    local OPTIND opt
+    while getopts "c:d:l" opt; do
+        case $opt in
+            c) echo "-c CREATE with value $OPTARG" 
+               cf_go_create $OPTARG
+               export PS1="[\u@\h $(cf_target) \W]\n > "
+               return
+               ;;
+            d) echo "-d DELETE with value $OPTARG"
+               /bin/rm -rf $CF_GO_HOME/$OPTARG
+               unset CF_HOME
+               export PS1="[\u@\h $(cf_target) \W]\n > "
+               return
+               ;;
+            l) printf "$O envs:  "
+               /bin/ls $CF_GO_HOME
+               return
+               ;;
+            ?) echo "USAGE: cf_go [-d|-c env] (-l) env"
+               echo "  env # Switch to existing env"
+               echo "  -c env # Create env"
+               echo "  -d env # Delete env"
+               echo "  -l # List envs"
+               return
+               ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    echo "cf switch $1"
+    if [ "$1" = "default" ]; then
+      unset CF_HOME
+    else
+      export CF_HOME=$CF_GO_HOME/$1
+    fi
+    export PS1="[\u@\h $(cf_target) \W]\n > "
+}
+
+function cf_gox() {
   target=$1
   case $target in 
     fr|fr-stage)
@@ -39,3 +104,5 @@ function cf_go() {
         ;;
     esac
 }
+
+starship_precmd_user_func="cf_target"
