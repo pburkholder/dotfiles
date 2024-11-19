@@ -38,6 +38,8 @@ CF_GO_HOME=$HOME/.cf_go
 CGAPI=https://api.fr.cloud.gov
 
 function cf_go_create() {
+  local cf_env
+  local cf_go_env
   cf_env=$1
   echo "Creating cf_go env $1 with current target"
   cf_go_env="$HOME/.cf_go/$cf_env"
@@ -50,23 +52,26 @@ function cf_go_create() {
 }
 
 function cf_go() {
-    local OPTIND opt usage
+    local OPTIND opt
     while getopts "c:d:l" opt; do
         case $opt in
             c) echo "-c CREATE with value $OPTARG" 
                cf_go_create $OPTARG
+               export PS1="[\u@\h $(cf_target) \W]\n > "
                return
                ;;
             d) echo "-d DELETE with value $OPTARG"
                /bin/rm -rf $CF_GO_HOME/$OPTARG
+               unset CF_HOME
+               export PS1="[\u@\h $(cf_target) \W]\n > "
                return
                ;;
             l) printf "$O envs:  "
                /bin/ls $CF_GO_HOME
                return
                ;;
-            ?) echo "USAGE: $0 [-d|-c env] (-l) env"
-               echo "  env # Switch to exist env"
+            ?) echo "USAGE: cf_go [-d|-c env] (-l) env"
+               echo "  env # Switch to existing env"
                echo "  -c env # Create env"
                echo "  -d env # Delete env"
                echo "  -l # List envs"
@@ -76,7 +81,12 @@ function cf_go() {
     done
     shift $((OPTIND-1))
     echo "cf switch $1"
-    export CF_HOME=$CF_GO_HOME/$1
+    if [ "$1" = "default" ]; then
+      unset CF_HOME
+    else
+      export CF_HOME=$CF_GO_HOME/$1
+    fi
+    export PS1="[\u@\h $(cf_target) \W]\n > "
 }
 
 function cf_gox() {
