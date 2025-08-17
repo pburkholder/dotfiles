@@ -1,0 +1,14 @@
+
+alias mroe='more'
+alias m='more'
+alias ls='/bin/ls -F'
+alias ll='/bin/ls -l'
+alias g='git'
+# FUNCTIONS:
+lh () { /bin/ls -lt $@ | /usr/bin/head; }          
+p() { pushd ${1}; }
+P() { popd ${1}; }
+alias wordle='curl -s https://gist.githubusercontent.com/bklaas/5f93da478e01af48016c1f3b5025281c/raw/485b2ed5e6d1f33e4041bc56809f0ea8cb0952b2/gistfile1.txt'
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias cg=`cd $HOME/Projects/cloud-gov`
+
