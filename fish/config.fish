@@ -2,6 +2,7 @@
 # Fish uses `fish_add_path` instead of `export PATH` modify $PATH.
 fish_add_path "/opt/homebrew/bin/"
 fish_add_path "$HOME/bin"
+fish_add_path "$HOME/go/bin"
 
 source $HOME/.config/fish/conf.d/cloud-gov
 
@@ -56,3 +57,12 @@ export REQUESTS_CA_BUNDLE=$CERT_PATH
 
 source $HOME/.tenv.completion.fish
 
+#export PATH="/Users/peterdburkholder/.lando/bin:$PATH"; #landopath
+
+# ZScaler: Configure AWS CLI. Without this, aws cli requests return CERTIFICATE_VERIFY_FAILED.
+export AWS_CA_BUNDLE=$(brew --prefix)/etc/ca-certificates/cert.pem
+
+# ZScaler: Configure NPM
+export NODE_EXTRA_CA_CERTS=$(brew --prefix)/etc/ca-certificates/cert.pem
+
+source $HOME/.config/fish/conf.d/nvm
